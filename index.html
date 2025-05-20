@@ -1,0 +1,2356 @@
+<? const AFILogo = "https://drive.google.com/file/d/1y2TgY1XQr1Y-1_kt0Q8P-25bMLEowqBk/view?usp=drive_link" ?>
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نظام صيانة الماكينات - شركة الصناعات الغذائية المتطورة</title>
+  <!-- Add Cairo font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0056b3;
+      --primary-dark: #004494;
+      --secondary: #6c757d;
+      --success: #28a745;
+      --danger: #dc3545;
+      --warning: #ffc107;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --radius: 8px;
+      --transition: all 0.3s ease;
+      --font-family: 'Cairo', 'Segoe UI', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: #f5f5f5;
+      color: var(--dark);
+      direction: rtl;
+      padding-bottom: 70px;
+    }
+
+    /* Updated header styles */
+    header {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .company-logo {
+      height: 50px;
+      width: auto;
+    }
+
+    .header-title {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Navigation Tabs for Mobile */
+    .mobile-tabs {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: var(--white);
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 0.8rem 0;
+      color: var(--secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      border-top: 3px solid var(--primary);
+      background-color: #f0f8ff;
+    }
+
+    .tab i {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Section Styling */
+    .section {
+      display: none;
+      padding: 1rem 0;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* Search and Filter Bar */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      background-color: var(--white);
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius) 0 0 var(--radius);
+      font-family: var(--font-family);
+    }
+
+    .search-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .filter-dropdown {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+    }
+
+    .add-btn {
+      background-color: var(--success);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Machine Cards Grid */
+    .machines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .machine-card {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .machine-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .machine-img {
+      height: 160px;
+      background-color: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .machine-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .machine-info {
+      padding: 1rem;
+    }
+
+    .machine-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .machine-details {
+      color: var(--secondary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .machine-status {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .status-operational {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-maintenance {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-breakdown {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      display: none;
+    }
+
+    .modal {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--secondary);
+    }
+
+    .modal-title {
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+      font-size: 1.3rem;
+    }
+
+    /* Form Styling */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-family: var(--font-family);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-col {
+      flex: 1;
+    }
+
+    .file-input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .file-input-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .file-input-button {
+      flex: 1;
+      padding: 0.5rem;
+      text-align: center;
+      background-color: #eee;
+      border: 1px dashed #aaa;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .file-input-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .file-preview {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .file-preview img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: white;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .alert {
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+    }
+
+    .alert-danger {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+
+    /* Logs Section */
+    .logs-list {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .log-item {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      transition: var(--transition);
+    }
+
+    .log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-item:hover {
+      background-color: #f8f9fa;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .log-title {
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .log-date {
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    .log-machine {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .log-type {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .log-type-maintenance {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .log-type-repair {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .log-type-breakdown {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .log-details {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .log-photos {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .log-photo {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .log-photo:hover {
+      transform: scale(1.05);
+    }
+
+    /* Breakdowns Section */
+    .breakdown-priority-high {
+      border-right: 4px solid var(--danger);
+    }
+
+    .breakdown-priority-medium {
+      border-right: 4px solid var(--warning);
+    }
+
+    .breakdown-priority-low {
+      border-right: 4px solid var(--info);
+    }
+
+    .priority-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .priority-high {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .priority-medium {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .priority-low {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    /* Machine Detail View */
+    .machine-detail {
+      background-color: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+
+    .machine-detail-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .machine-detail-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .machine-detail-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .machine-detail-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .machine-detail-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .machine-detail-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .machine-spec {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .spec-label {
+      font-weight: bold;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    .spec-value {
+      font-size: 0.9rem;
+    }
+
+    .machine-detail-body {
+      padding: 1.5rem;
+    }
+
+    .machine-detail-section {
+      margin-bottom: 2rem;
+    }
+
+    .machine-detail-section-title {
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .machine-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .machine-action-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+    }
+
+    .maintenance-history {
+      border-right: 3px solid #eee;
+      padding-right: 1rem;
+    }
+
+    .history-item {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .history-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .history-item:before {
+      content: '';
+      position: absolute;
+      right: -1.3rem;
+      top: 0;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background-color: var(--primary);
+    }
+
+    .history-date {
+      font-size: 0.8rem;
+      color: var(--secondary);
+      margin-bottom: 0.2rem;
+    }
+
+    .history-title {
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+
+    .history-details {
+      font-size: 0.9rem;
+    }
+
+    /* Camera Interface */
+    .camera-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: black;
+      z-index: 3000;
+    }
+
+    #camera-stream {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .camera-controls {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .camera-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .take-photo {
+      background-color: white;
+    }
+
+    .close-camera {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .machine-detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .machine-detail-img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .machine-actions {
+        justify-content: center;
+      }
+
+      .header-title {
+        font-size: 1.1rem;
+      }
+
+      .company-logo {
+        height: 40px;
+      }
+    }
+
+    /* Font awesome icons replacement */
+    .icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 0;
+      stroke: currentColor;
+      fill: currentColor;
+      vertical-align: middle;
+    }
+
+    /* RTL specific adjustments */
+    select {
+      text-align: right;
+      text-align-last: right;
+    }
+
+    input,
+    textarea {
+      text-align: right;
+    }
+
+    /* Ensure consistent styling in all browsers */
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font-family: var(--font-family);
+    }
+
+    /* Loading state */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Add New Form */
+    .camera-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .camera-placeholder {
+      width: 120px;
+      height: 120px;
+      background-color: #eee;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 2rem;
+    }
+
+    /* Notification Indicator */
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--danger);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Tab Content */
+    .tab-icon {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <img src="<?!= HELPERS.convertDriveUrlToDirectImageUrl(AFILogo) ?>" alt="شعار الشركة" class="company-logo">
+            <h1 class="header-title">نظام صيانة الماكينات - شركة الصناعات الغذائية المتطورة</h1>
+        </div>
+    </header>
+
+  <div class="container">
+    <!-- Machines Section -->
+    <section id="machines-section" class="section active">
+      <div class="toolbar">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="البحث عن ماكينة..." id="machine-search">
+          <button class="search-btn">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+        </div>
+        <select class="filter-dropdown" id="department-filter">
+                    <option value="all">جميع الأقسام</option>
+                    <option value="meat">قسم اللحوم</option>
+                    <option value="rice">قسم الأرز</option>
+                    <option value="maamoul">قسم المعمول</option>
+                </select>
+        <button class="add-btn" id="add-machine-btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    إضافة ماكينة
+                </button>
+      </div>
+
+      <div class="machines-grid" id="machines-grid">
+        <!-- Machine cards will be inserted here dynamically -->
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logs Section -->
+    <section id="logs-section" class="section">
+      <div class="toolbar">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="البحث في السجلات..." id="log-search">
+          <button class="search-btn">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+        </div>
+        <select class="filter-dropdown" id="log-type-filter">
+                    <option value="all">جميع الأنواع</option>
+                    <option value="maintenance">صيانة دورية</option>
+                    <option value="repair">إصلاح</option>
+                    <option value="breakdown">عطل</option>
+                </select>
+        <button class="add-btn" id="add-log-btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                    إضافة سجل
+                </button>
+      </div>
+
+      <div class="logs-list" id="logs-list">
+        <!-- Log items will be inserted here dynamically -->
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breakdowns Section -->
+    <section id="breakdowns-section" class="section">
+      <div class="toolbar">
+        <div class="search-bar">
+          <input type="text" class="search-input" placeholder="البحث في الأعطال..." id="breakdown-search">
+          <button class="search-btn">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+        </div>
+        <select class="filter-dropdown" id="breakdown-priority-filter">
+                    <option value="all">جميع الأولويات</option>
+                    <option value="high">عالية</option>
+                    <option value="medium">متوسطة</option>
+                    <option value="low">منخفضة</option>
+                </select>
+        <button class="add-btn" id="report-breakdown-btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                    الإبلاغ عن عطل
+                </button>
+      </div>
+
+      <div class="logs-list" id="breakdowns-list">
+        <!-- Breakdown items will be inserted here dynamically -->
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <div class="mobile-tabs">
+    <div class="tab active" data-section="machines-section">
+      <div class="tab-icon">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+        </svg>
+        <span>الماكينات</span>
+      </div>
+    </div>
+    <div class="tab" data-section="logs-section">
+      <div class="tab-icon">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+        </svg>
+        <span>السجلات</span>
+      </div>
+    </div>
+    <div class="tab" data-section="breakdowns-section">
+      <div class="tab-icon">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
+        </svg>
+        <span>الأعطال</span>
+        <div class="notification-badge">5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Add Machine Modal -->
+  <div class="modal-overlay" id="add-machine-modal">
+    <div class="modal">
+      <button class="modal-close" id="close-add-machine-modal">&times;</button>
+      <h2 class="modal-title">إضافة ماكينة جديدة</h2>
+      <form id="add-machine-form">
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">اسم الماكينة</label>
+              <input type="text" class="form-control" id="machine-name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">القسم</label>
+              <select class="form-control" id="machine-department" required>
+                                <option value="">اختر القسم</option>
+                                <option value="meat">قسم اللحوم</option>
+                                <option value="rice">قسم الأرز</option>
+                                <option value="maamoul">قسم المعمول</option>
+                            </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">رمز الماكينة</label>
+              <input type="text" class="form-control" id="machine-code">
+            </div>
+          </div>
+          <div class="form-col camera-col">
+            <div id="machine-image-preview" class="camera-placeholder">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
+            </div>
+            <div class="file-input-buttons">
+              <label class="file-input-button" for="machine-image-upload">
+                                اختيار صورة
+                                <input type="file" id="machine-image-upload" accept="image/*" style="display: none;">
+                            </label>
+              <button type="button" class="file-input-button" id="machine-take-photo">
+                                التقاط صورة
+                            </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">الموقع</label>
+          <input type="text" class="form-control" id="machine-location">
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">بلد المنشأ</label>
+              <input type="text" class="form-control" id="machine-origin">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">تاريخ بدء الاستخدام</label>
+              <input type="date" class="form-control" id="machine-start-date">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ملاحظات</label>
+          <textarea class="form-control" id="machine-notes"></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="cancel-add-machine">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Log Modal -->
+  <div class="modal-overlay" id="add-log-modal">
+    <div class="modal">
+      <button class="modal-close" id="close-add-log-modal">&times;</button>
+      <h2 class="modal-title">إضافة سجل صيانة</h2>
+      <form id="add-log-form">
+        <div class="form-group">
+          <label class="form-label">الماكينة</label>
+          <select class="form-control" id="log-machine" required>
+                        <option value="">اختر الماكينة</option>
+                        <!-- Machine options will be populated dynamically -->
+                    </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">نوع السجل</label>
+          <select class="form-control" id="log-type" required>
+                        <option value="">اختر النوع</option>
+                        <option value="maintenance">صيانة دورية</option>
+                        <option value="repair">إصلاح</option>
+                    </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">الأعمال التي تمت</label>
+          <textarea class="form-control" id="log-description" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">الفني المسؤول</label>
+              <input type="text" class="form-control" id="log-technician">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">التاريخ</label>
+              <input type="date" class="form-control" id="log-date" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">قطع الغيار المستخدمة</label>
+          <textarea class="form-control" id="log-parts"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">صور</label>
+          <div class="file-input-container">
+            <div class="file-input-buttons">
+              <label class="file-input-button" for="log-image-upload">
+                                اختيار صور
+                                <input type="file" id="log-image-upload" accept="image/*" style="display: none;" multiple>
+                            </label>
+              <button type="button" class="file-input-button" id="log-take-photo">
+                                التقاط صورة
+                            </button>
+            </div>
+            <div class="file-preview" id="log-image-preview">
+              <!-- Preview images will be inserted here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="cancel-add-log">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Report Breakdown Modal -->
+  <div class="modal-overlay" id="report-breakdown-modal">
+    <div class="modal">
+      <button class="modal-close" id="close-breakdown-modal">&times;</button>
+      <h2 class="modal-title">الإبلاغ عن عطل</h2>
+      <form id="add-breakdown-form">
+        <div class="form-group">
+          <label class="form-label">الماكينة</label>
+          <select class="form-control" id="breakdown-machine" required>
+                        <option value="">اختر الماكينة</option>
+                        <!-- Machine options will be populated dynamically -->
+                    </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">تحديد مظهر العطل</label>
+          <textarea class="form-control" id="breakdown-description" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">أولوية العطل</label>
+          <select class="form-control" id="breakdown-priority" required>
+                        <option value="">اختر الأولوية</option>
+                        <option value="high">عالية - يوقف الإنتاج</option>
+                        <option value="medium">متوسطة - يؤثر على الإنتاج</option>
+                        <option value="low">منخفضة - لا يؤثر على الإنتاج</option>
+                    </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">القائم بالتبليغ</label>
+              <input type="text" class="form-control" id="breakdown-reporter" required>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+              <label class="form-label">التاريخ</label>
+              <input type="date" class="form-control" id="breakdown-date" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">صور</label>
+          <div class="file-input-container">
+            <div class="file-input-buttons">
+              <label class="file-input-button" for="breakdown-image-upload">
+                                اختيار صور
+                                <input type="file" id="breakdown-image-upload" accept="image/*" style="display: none;" multiple>
+                            </label>
+              <button type="button" class="file-input-button" id="breakdown-take-photo">
+                                التقاط صورة
+                            </button>
+            </div>
+            <div class="file-preview" id="breakdown-image-preview">
+              <!-- Preview images will be inserted here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="cancel-breakdown">إلغاء</button>
+          <button type="submit" class="btn btn-primary">حفظ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Machine Details Modal -->
+  <div class="modal-overlay" id="machine-details-modal">
+    <div class="modal">
+      <button class="modal-close" id="close-machine-details-modal">&times;</button>
+      <div id="machine-details-content">
+        <!-- Machine details will be inserted here dynamically -->
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camera Interface -->
+  <div class="camera-container" id="camera-interface">
+    <video id="camera-stream" autoplay></video>
+    <div class="camera-controls">
+      <button class="camera-button take-photo" id="capture-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3.2"/>
+                    <path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                </svg>
+            </button>
+      <button class="camera-button close-camera" id="close-camera">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+            </button>
+    </div>
+  </div>
+
+  <script>
+    // Sample data for demonstration
+        const machines = [
+            {
+                id: 1,
+                name: 'فيلر لونش بالتمان VF200',
+                department: 'meat',
+                departmentName: 'قسم اللحوم',
+                code: 'MSFL01',
+                location: 'قسم اللحوم',
+                origin: 'ألمانيا',
+                startDate: '2021-05-15',
+                status: 'operational',
+                image: 'https://via.placeholder.com/300x200?text=VF200',
+                notes: 'ماكينة تعبئة سريعة وفعالة'
+            },
+            {
+                id: 2,
+                name: 'فيلر فيربي F60',
+                department: 'meat',
+                departmentName: 'قسم اللحوم',
+                code: 'MSFL02',
+                location: 'قسم اللحوم',
+                origin: 'إيطاليا',
+                startDate: '2022-03-10',
+                status: 'maintenance',
+                image: 'https://via.placeholder.com/300x200?text=F60',
+                notes: 'تحتاج إلى صيانة دورية كل 3 أشهر'
+            },
+            {
+                id: 3,
+                name: 'مفرمة 300 مم',
+                department: 'meat',
+                departmentName: 'قسم اللحوم',
+                code: 'MSMG01',
+                location: 'قسم اللحوم',
+                origin: 'ألمانيا',
+                startDate: '2020-11-22',
+                status: 'breakdown',
+                image: 'https://via.placeholder.com/300x200?text=MSMG01',
+                notes: 'تم الإبلاغ عن عطل في محرك المفرمة'
+            },
+            {
+                id: 4,
+                name: 'ماكينة تعبئة الأرز 1 كجم',
+                department: 'rice',
+                departmentName: 'قسم الأرز',
+                code: 'RCFL01',
+                location: 'قسم الأرز',
+                origin: 'الصين',
+                startDate: '2023-01-05',
+                status: 'operational',
+                image: 'https://via.placeholder.com/300x200?text=RCFL01',
+                notes: 'ماكينة جديدة تعمل بكفاءة عالية'
+            },
+            {
+                id: 5,
+                name: 'ماكينة لحام أكياس',
+                department: 'rice',
+                departmentName: 'قسم الأرز',
+                code: 'RCSL01',
+                location: 'قسم الأرز',
+                origin: 'الصين',
+                startDate: '2022-08-15',
+                status: 'operational',
+                image: 'https://via.placeholder.com/300x200?text=RCSL01',
+                notes: ''
+            },
+            {
+                id: 6,
+                name: 'فرن دوار',
+                department: 'maamoul',
+                departmentName: 'قسم المعمول',
+                code: 'MAOV01',
+                location: 'قسم المعمول',
+                origin: 'تركيا',
+                startDate: '2022-04-10',
+                status: 'maintenance',
+                image: 'https://via.placeholder.com/300x200?text=MAOV01',
+                notes: 'يحتاج إلى تنظيف دوري للتخلص من بقايا العجين'
+            },
+            {
+                id: 7,
+                name: 'ماكينة تشكيل معمول',
+                department: 'maamoul',
+                departmentName: 'قسم المعمول',
+                code: 'MAFR01',
+                location: 'قسم المعمول',
+                origin: 'لبنان',
+                startDate: '2021-10-20',
+                status: 'operational',
+                image: 'https://via.placeholder.com/300x200?text=MAFR01',
+                notes: 'تنتج حوالي 1000 قطعة في الساعة'
+            },
+            {
+                id: 8,
+                name: 'فرن شرنك',
+                department: 'rice',
+                departmentName: 'قسم الأرز',
+                code: 'RCSHR01',
+                location: 'قسم الأرز',
+                origin: 'مصر',
+                startDate: '2022-06-12',
+                status: 'breakdown',
+                image: 'https://via.placeholder.com/300x200?text=RCSHR01',
+                notes: 'عطل في نظام التسخين'
+            }
+        ];
+
+        const logs = [
+            {
+                id: 1,
+                machineId: 2,
+                machineName: 'فيلر فيربي F60',
+                type: 'maintenance',
+                typeName: 'صيانة دورية',
+                description: 'تنظيف وتزييت الماكينة وضبط الإعدادات',
+                technician: 'أحمد محمد',
+                date: '2024-05-15',
+                parts: '',
+                photos: ['https://via.placeholder.com/100x100?text=Photo1', 'https://via.placeholder.com/100x100?text=Photo2']
+            },
+            {
+                id: 2,
+                machineId: 3,
+                machineName: 'مفرمة 300 مم',
+                type: 'repair',
+                typeName: 'إصلاح',
+                description: 'استبدال شفرات المفرمة وإصلاح نظام التروس',
+                technician: 'علي حسن',
+                date: '2024-05-10',
+                parts: 'شفرات مفرمة جديدة، مجموعة تروس',
+                photos: ['https://via.placeholder.com/100x100?text=Photo3']
+            },
+            {
+                id: 3,
+                machineId: 6,
+                machineName: 'فرن دوار',
+                type: 'maintenance',
+                typeName: 'صيانة دورية',
+                description: 'تنظيف شامل للفرن وفحص نظام التسخين',
+                technician: 'محمود عبد الرحمن',
+                date: '2024-05-08',
+                parts: '',
+                photos: []
+            },
+            {
+                id: 4,
+                machineId: 8,
+                machineName: 'فرن شرنك',
+                type: 'repair',
+                typeName: 'إصلاح',
+                description: 'إصلاح نظام التسخين واستبدال مستشعر الحرارة',
+                technician: 'سامي خالد',
+                date: '2024-05-05',
+                parts: 'مستشعر حرارة جديد، وحدة تحكم',
+                photos: ['https://via.placeholder.com/100x100?text=Photo4', 'https://via.placeholder.com/100x100?text=Photo5']
+            }
+        ];
+
+        const breakdowns = [
+            {
+                id: 1,
+                machineId: 3,
+                machineName: 'مفرمة 300 مم',
+                description: 'صوت غير طبيعي من محرك المفرمة والماكينة لا تعمل بشكل صحيح',
+                priority: 'high',
+                priorityName: 'عالية',
+                reporter: 'محمد أحمد',
+                date: '2024-05-12',
+                resolved: false,
+                photos: ['https://via.placeholder.com/100x100?text=Breakdown1']
+            },
+            {
+                id: 2,
+                machineId: 8,
+                machineName: 'فرن شرنك',
+                description: 'الفرن لا يسخن إلى درجة الحرارة المطلوبة ويتوقف تلقائياً بعد عدة دقائق من التشغيل',
+                priority: 'high',
+                priorityName: 'عالية',
+                reporter: 'علي محمود',
+                date: '2024-05-10',
+                resolved: false,
+                photos: ['https://via.placeholder.com/100x100?text=Breakdown2', 'https://via.placeholder.com/100x100?text=Breakdown3']
+            },
+            {
+                id: 3,
+                machineId: 2,
+                machineName: 'فيلر فيربي F60',
+                description: 'تسرب هواء من نظام التفريغ الهوائي مما يؤثر على جودة التعبئة',
+                priority: 'medium',
+                priorityName: 'متوسطة',
+                reporter: 'خالد سمير',
+                date: '2024-05-14',
+                resolved: false,
+                photos: []
+            },
+            {
+                id: 4,
+                machineId: 6,
+                machineName: 'فرن دوار',
+                description: 'مشكلة في نظام التدوير، الفرن يعمل ولكن الرف الداخلي لا يدور',
+                priority: 'medium',
+                priorityName: 'متوسطة',
+                reporter: 'سامي أحمد',
+                date: '2024-05-15',
+                resolved: false,
+                photos: ['https://via.placeholder.com/100x100?text=Breakdown4']
+            },
+            {
+                id: 5,
+                machineId: 1,
+                machineName: 'فيلر لونش بالتمان VF200',
+                description: 'خلل في شاشة التحكم، بعض الأزرار لا تستجيب',
+                priority: 'low',
+                priorityName: 'منخفضة',
+                reporter: 'فادي عمر',
+                date: '2024-05-16',
+                resolved: false,
+                photos: ['https://via.placeholder.com/100x100?text=Breakdown5']
+            }
+        ];
+
+        // DOM elements
+        const machinesGrid = document.getElementById('machines-grid');
+        const logsList = document.getElementById('logs-list');
+        const breakdownsList = document.getElementById('breakdowns-list');
+        const tabs = document.querySelectorAll('.tab');
+        const sections = document.querySelectorAll('.section');
+
+        // Modal elements
+        const addMachineModal = document.getElementById('add-machine-modal');
+        const addLogModal = document.getElementById('add-log-modal');
+        const reportBreakdownModal = document.getElementById('report-breakdown-modal');
+        const machineDetailsModal = document.getElementById('machine-details-modal');
+        const cameraInterface = document.getElementById('camera-interface');
+
+        // Search and filter elements
+        const machineSearch = document.getElementById('machine-search');
+        const departmentFilter = document.getElementById('department-filter');
+        const logSearch = document.getElementById('log-search');
+        const logTypeFilter = document.getElementById('log-type-filter');
+        const breakdownSearch = document.getElementById('breakdown-search');
+        const breakdownPriorityFilter = document.getElementById('breakdown-priority-filter');
+
+        // Buttons
+        const addMachineBtn = document.getElementById('add-machine-btn');
+        const addLogBtn = document.getElementById('add-log-btn');
+        const reportBreakdownBtn = document.getElementById('report-breakdown-btn');
+
+        // Init functions
+        function init() {
+            // Load initial data
+            renderMachines();
+            renderLogs();
+            renderBreakdowns();
+            populateMachineDropdowns();
+            
+            // Set default date values to today
+            setDefaultDates();
+            
+            // Attach event listeners
+            attachEventListeners();
+        }
+
+        // Render machines
+        function renderMachines(filter = 'all', searchTerm = '') {
+            // Clear previous content
+            machinesGrid.innerHTML = '';
+            
+            // Filter and search machines
+            let filteredMachines = machines;
+            
+            if (filter !== 'all') {
+                filteredMachines = filteredMachines.filter(machine => machine.department === filter);
+            }
+            
+            if (searchTerm) {
+                const searchLower = searchTerm.toLowerCase();
+                filteredMachines = filteredMachines.filter(machine => 
+                    machine.name.toLowerCase().includes(searchLower) || 
+                    machine.code.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            // Create machine cards
+            if (filteredMachines.length === 0) {
+                machinesGrid.innerHTML = '<div class="alert alert-danger">لا توجد ماكينات مطابقة لمعايير البحث</div>';
+                return;
+            }
+            
+            filteredMachines.forEach(machine => {
+                const statusClass = `status-${machine.status}`;
+                let statusLabel = '';
+                
+                switch(machine.status) {
+                    case 'operational':
+                        statusLabel = 'تعمل';
+                        break;
+                    case 'maintenance':
+                        statusLabel = 'قيد الصيانة';
+                        break;
+                    case 'breakdown':
+                        statusLabel = 'معطلة';
+                        break;
+                }
+                
+                const card = document.createElement('div');
+                card.className = 'machine-card';
+                card.dataset.id = machine.id;
+                
+                card.innerHTML = `
+                    <div class="machine-img">
+                        <img src="${machine.image}" alt="${machine.name}">
+                    </div>
+                    <div class="machine-info">
+                        <div class="machine-title">${machine.name}</div>
+                        <div class="machine-details">${machine.departmentName} - ${machine.code}</div>
+                        <div class="machine-status ${statusClass}">${statusLabel}</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => showMachineDetails(machine.id));
+                
+                machinesGrid.appendChild(card);
+            });
+        }
+
+        // Render logs
+        function renderLogs(filter = 'all', searchTerm = '') {
+            // Clear previous content
+            logsList.innerHTML = '';
+            
+            // Filter and search logs
+            let filteredLogs = logs;
+            
+            if (filter !== 'all') {
+                filteredLogs = filteredLogs.filter(log => log.type === filter);
+            }
+            
+            if (searchTerm) {
+                const searchLower = searchTerm.toLowerCase();
+                filteredLogs = filteredLogs.filter(log => 
+                    log.machineName.toLowerCase().includes(searchLower) || 
+                    log.description.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            // Sort logs by date (newest first)
+            filteredLogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Create log items
+            if (filteredLogs.length === 0) {
+                logsList.innerHTML = '<div class="alert alert-danger">لا توجد سجلات مطابقة لمعايير البحث</div>';
+                return;
+            }
+            
+            filteredLogs.forEach(log => {
+                const typeClass = `log-type-${log.type}`;
+                
+                const logItem = document.createElement('div');
+                logItem.className = 'log-item';
+                
+                logItem.innerHTML = `
+                    <div class="log-header">
+                        <div class="log-title">${log.typeName}</div>
+                        <div class="log-date">${formatDate(log.date)}</div>
+                    </div>
+                    <div class="log-machine">${log.machineName}</div>
+                    <div class="log-type ${typeClass}">${log.typeName}</div>
+                    <div class="log-details">${log.description}</div>
+                    ${log.parts ? `<div class="log-details">قطع الغيار: ${log.parts}</div>` : ''}
+                    <div class="log-details">الفني: ${log.technician}</div>
+                    ${log.photos.length > 0 ? 
+                        `<div class="log-photos">
+                            ${log.photos.map(photo => `<img src="${photo}" class="log-photo" alt="صورة الصيانة">`).join('')}
+                        </div>` : ''
+                    }
+                `;
+                
+                logsList.appendChild(logItem);
+            });
+        }
+
+        // Render breakdowns
+        function renderBreakdowns(filter = 'all', searchTerm = '') {
+            // Clear previous content
+            breakdownsList.innerHTML = '';
+            
+            // Filter and search breakdowns
+            let filteredBreakdowns = breakdowns;
+            
+            if (filter !== 'all') {
+                filteredBreakdowns = filteredBreakdowns.filter(breakdown => breakdown.priority === filter);
+            }
+            
+            if (searchTerm) {
+                const searchLower = searchTerm.toLowerCase();
+                filteredBreakdowns = filteredBreakdowns.filter(breakdown => 
+                    breakdown.machineName.toLowerCase().includes(searchLower) || 
+                    breakdown.description.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            // Sort breakdowns by priority (high -> medium -> low) and then by date (newest first)
+            filteredBreakdowns.sort((a, b) => {
+                const priorityOrder = { high: 0, medium: 1, low: 2 };
+                if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                    return priorityOrder[a.priority] - priorityOrder[b.priority];
+                }
+                return new Date(b.date) - new Date(a.date);
+            });
+            
+            // Create breakdown items
+            if (filteredBreakdowns.length === 0) {
+                breakdownsList.innerHTML = '<div class="alert alert-danger">لا توجد أعطال مطابقة لمعايير البحث</div>';
+                return;
+            }
+            
+            filteredBreakdowns.forEach(breakdown => {
+                const priorityClass = `breakdown-priority-${breakdown.priority}`;
+                const badgeClass = `priority-${breakdown.priority}`;
+                
+                const breakdownItem = document.createElement('div');
+                breakdownItem.className = `log-item ${priorityClass}`;
+                
+                breakdownItem.innerHTML = `
+                    <div class="log-header">
+                        <div class="log-title">${breakdown.machineName}</div>
+                        <div class="log-date">${formatDate(breakdown.date)}</div>
+                    </div>
+                    <div class="priority-badge ${badgeClass}">أولوية ${breakdown.priorityName}</div>
+                    <div class="log-details">${breakdown.description}</div>
+                    <div class="log-details">المبلغ: ${breakdown.reporter}</div>
+                    ${breakdown.photos.length > 0 ? 
+                        `<div class="log-photos">
+                            ${breakdown.photos.map(photo => `<img src="${photo}" class="log-photo" alt="صورة العطل">`).join('')}
+                        </div>` : ''
+                    }
+                    <div class="machine-actions">
+                        <button class="machine-action-btn btn-primary handle-breakdown" data-id="${breakdown.id}">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                            </svg>
+                            معالجة العطل
+                        </button>
+                    </div>
+                `;
+                
+                breakdownsList.appendChild(breakdownItem);
+            });
+            
+            // Attach event listeners to handle breakdown buttons
+            document.querySelectorAll('.handle-breakdown').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const breakdownId = parseInt(button.dataset.id);
+                    handleBreakdown(breakdownId);
+                });
+            });
+        }
+
+        // Show machine details
+        function showMachineDetails(machineId) {
+            const machine = machines.find(m => m.id === machineId);
+            
+            if (!machine) return;
+            
+            const machineDetailsContent = document.getElementById('machine-details-content');
+            
+            // Get maintenance history for this machine
+            const machineHistory = [...logs, ...breakdowns.map(b => ({
+                ...b,
+                type: 'breakdown',
+                typeName: 'إبلاغ عن عطل',
+                technician: b.reporter,
+                parts: ''
+            }))].filter(item => item.machineId === machineId);
+            
+            // Sort history by date (newest first)
+            machineHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let statusLabel = '';
+            let statusClass = '';
+            
+            switch(machine.status) {
+                case 'operational':
+                    statusLabel = 'تعمل';
+                    statusClass = 'status-operational';
+                    break;
+                case 'maintenance':
+                    statusLabel = 'قيد الصيانة';
+                    statusClass = 'status-maintenance';
+                    break;
+                case 'breakdown':
+                    statusLabel = 'معطلة';
+                    statusClass = 'status-breakdown';
+                    break;
+            }
+            
+            // Create machine details HTML
+            machineDetailsContent.innerHTML = `
+                <div class="machine-detail">
+                    <div class="machine-detail-header">
+                        <div class="machine-detail-img">
+                            <img src="${machine.image}" alt="${machine.name}">
+                        </div>
+                        <div class="machine-detail-info">
+                            <div class="machine-detail-title">${machine.name}</div>
+                            <div class="machine-status ${statusClass}">${statusLabel}</div>
+                            <div class="machine-detail-specs">
+                                <div class="machine-spec">
+                                    <div class="spec-label">القسم:</div>
+                                    <div class="spec-value">${machine.departmentName}</div>
+                                </div>
+                                <div class="machine-spec">
+                                    <div class="spec-label">الرمز:</div>
+                                    <div class="spec-value">${machine.code}</div>
+                                </div>
+                                <div class="machine-spec">
+                                    <div class="spec-label">الموقع:</div>
+                                    <div class="spec-value">${machine.location}</div>
+                                </div>
+                                <div class="machine-spec">
+                                    <div class="spec-label">بلد المنشأ:</div>
+                                    <div class="spec-value">${machine.origin || 'غير محدد'}</div>
+                                </div>
+                                <div class="machine-spec">
+                                    <div class="spec-label">تاريخ بدء الاستخدام:</div>
+                                    <div class="spec-value">${formatDate(machine.startDate) || 'غير محدد'}</div>
+                                </div>
+                            </div>
+                            <div class="machine-actions">
+                                <button class="machine-action-btn btn-primary" id="add-maintenance-btn" data-id="${machine.id}">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65c-.03-.24-.24-.42-.49-.42h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
+                                    </svg>
+                                    إضافة صيانة
+                                </button>
+                                <button class="machine-action-btn btn-danger" id="report-machine-breakdown-btn" data-id="${machine.id}">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                                    </svg>
+                                    الإبلاغ عن عطل
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="machine-detail-body">
+                        <div class="machine-detail-section">
+                            <div class="machine-detail-section-title">ملاحظات</div>
+                            <div class="machine-detail-section-content">
+                                ${machine.notes || 'لا توجد ملاحظات'}
+                            </div>
+                        </div>
+                        <div class="machine-detail-section">
+                            <div class="machine-detail-section-title">سجل الصيانة</div>
+                            <div class="maintenance-history">
+                                ${machineHistory.length > 0 ? 
+                                    machineHistory.map(item => `
+                                        <div class="history-item">
+                                            <div class="history-date">${formatDate(item.date)}</div>
+                                            <div class="history-title">${item.typeName}</div>
+                                            <div class="history-details">${item.description}</div>
+                                            ${item.parts ? `<div class="history-details">قطع الغيار: ${item.parts}</div>` : ''}
+                                            <div class="history-details">
+                                                ${item.type === 'breakdown' ? 'المبلغ' : 'الفني'}: ${item.technician}
+                                            </div>
+                                        </div>
+                                    `).join('') : 
+                                    '<div class="history-details">لا يوجد سجل صيانة</div>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Show modal
+            machineDetailsModal.style.display = 'flex';
+            
+            // Attach event listeners
+            document.getElementById('add-maintenance-btn').addEventListener('click', () => {
+                closeMachineDetailsModal();
+                showAddLogModal(machineId);
+            });
+            
+            document.getElementById('report-machine-breakdown-btn').addEventListener('click', () => {
+                closeMachineDetailsModal();
+                showReportBreakdownModal(machineId);
+            });
+        }
+
+        // Add a new machine
+        function addMachine(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('machine-name').value;
+            const department = document.getElementById('machine-department').value;
+            const code = document.getElementById('machine-code').value;
+            const location = document.getElementById('machine-location').value;
+            const origin = document.getElementById('machine-origin').value;
+            const startDate = document.getElementById('machine-start-date').value;
+            const notes = document.getElementById('machine-notes').value;
+            
+            // Get department name
+            let departmentName = '';
+            switch(department) {
+                case 'meat':
+                    departmentName = 'قسم اللحوم';
+                    break;
+                case 'rice':
+                    departmentName = 'قسم الأرز';
+                    break;
+                case 'maamoul':
+                    departmentName = 'قسم المعمول';
+                    break;
+            }
+            
+            // Create new machine object
+            const newMachine = {
+                id: machines.length + 1,
+                name,
+                department,
+                departmentName,
+                code,
+                location,
+                origin,
+                startDate,
+                status: 'operational',
+                image: '',
+                notes
+            };
+            
+            // Add to machines array
+            machines.push(newMachine);
+            
+            // Refresh machines grid
+            renderMachines();
+            populateMachineDropdowns();
+            
+            // Close modal
+            closeAddMachineModal();
+        }
+
+        // Add a new log
+        function addLog(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const machineId = parseInt(document.getElementById('log-machine').value);
+            const type = document.getElementById('log-type').value;
+            const description = document.getElementById('log-description').value;
+            const technician = document.getElementById('log-technician').value;
+            const date = document.getElementById('log-date').value;
+            const parts = document.getElementById('log-parts').value;
+            
+            // Get machine name
+            const machine = machines.find(m => m.id === machineId);
+            const machineName = machine ? machine.name : '';
+            
+            // Get type name
+            let typeName = '';
+            switch(type) {
+                case 'maintenance':
+                    typeName = 'صيانة دورية';
+                    break;
+                case 'repair':
+                    typeName = 'إصلاح';
+                    break;
+            }
+            
+            // Create new log object
+            const newLog = {
+                id: logs.length + 1,
+                machineId,
+                machineName,
+                type,
+                typeName,
+                description,
+                technician,
+                date,
+                parts,
+                photos: []
+            };
+            
+            // Add to logs array
+            logs.push(newLog);
+            
+            // Update machine status if it's a repair
+            if (type === 'repair' && machine) {
+                machine.status = 'operational';
+            }
+            
+            // Refresh logs list and machines grid
+            renderLogs();
+            renderMachines();
+            
+            // Close modal
+            closeAddLogModal();
+        }
+
+        // Report a breakdown
+        function reportBreakdown(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const machineId = parseInt(document.getElementById('breakdown-machine').value);
+            const description = document.getElementById('breakdown-description').value;
+            const priority = document.getElementById('breakdown-priority').value;
+            const reporter = document.getElementById('breakdown-reporter').value;
+            const date = document.getElementById('breakdown-date').value;
+            
+            // Get machine name
+            const machine = machines.find(m => m.id === machineId);
+            const machineName = machine ? machine.name : '';
+            
+            // Get priority name
+            let priorityName = '';
+            switch(priority) {
+                case 'high':
+                    priorityName = 'عالية';
+                    break;
+                case 'medium':
+                    priorityName = 'متوسطة';
+                    break;
+                case 'low':
+                    priorityName = 'منخفضة';
+                    break;
+            }
+            
+            // Create new breakdown object
+            const newBreakdown = {
+                id: breakdowns.length + 1,
+                machineId,
+                machineName,
+                description,
+                priority,
+                priorityName,
+                reporter,
+                date,
+                resolved: false,
+                photos: []
+            };
+            
+            // Add to breakdowns array
+            breakdowns.push(newBreakdown);
+            
+            // Update machine status
+            if (machine) {
+                machine.status = 'breakdown';
+            }
+            
+            // Refresh breakdowns list and machines grid
+            renderBreakdowns();
+            renderMachines();
+            
+            // Update notification badge
+            updateNotificationBadge();
+            
+            // Close modal
+            closeReportBreakdownModal();
+        }
+
+        // Handle breakdown (mark as being addressed)
+        function handleBreakdown(breakdownId) {
+            const breakdown = breakdowns.find(b => b.id === breakdownId);
+            
+            if (!breakdown) return;
+            
+            // Mark as resolved
+            breakdown.resolved = true;
+            
+            // Update machine status
+            const machine = machines.find(m => m.id === breakdown.machineId);
+            if (machine) {
+                machine.status = 'maintenance';
+            }
+            
+            // Open the log modal to add repair details
+            showAddLogModal(breakdown.machineId, 'repair', breakdown.description);
+            
+            // Remove from breakdowns list
+            breakdowns.splice(breakdowns.findIndex(b => b.id === breakdownId), 1);
+            
+            // Refresh breakdowns list and machines grid
+            renderBreakdowns();
+            renderMachines();
+            
+            // Update notification badge
+            updateNotificationBadge();
+        }
+
+        // Utility function to format date
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ar-EG');
+        }
+
+        // Populate machine dropdowns
+        function populateMachineDropdowns() {
+            const logMachineSelect = document.getElementById('log-machine');
+            const breakdownMachineSelect = document.getElementById('breakdown-machine');
+            
+            // Clear existing options
+            logMachineSelect.innerHTML = '<option value="">اختر الماكينة</option>';
+            breakdownMachineSelect.innerHTML = '<option value="">اختر الماكينة</option>';
+            
+            // Add machine options
+            machines.forEach(machine => {
+                const logOption = document.createElement('option');
+                logOption.value = machine.id;
+                logOption.textContent = `${machine.name} (${machine.code})`;
+                logMachineSelect.appendChild(logOption);
+                
+                const breakdownOption = document.createElement('option');
+                breakdownOption.value = machine.id;
+                breakdownOption.textContent = `${machine.name} (${machine.code})`;
+                breakdownMachineSelect.appendChild(breakdownOption);
+            });
+        }
+
+        // Set default date values to today
+        function setDefaultDates() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            document.getElementById('log-date').value = today;
+            document.getElementById('breakdown-date').value = today;
+        }
+
+        // Update notification badge
+        function updateNotificationBadge() {
+            const badge = document.querySelector('.notification-badge');
+            
+            if (breakdowns.length > 0) {
+                badge.textContent = breakdowns.length;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Show/hide modals
+        function showAddMachineModal() {
+            addMachineModal.style.display = 'flex';
+        }
+        
+        function closeAddMachineModal() {
+            addMachineModal.style.display = 'none';
+            document.getElementById('add-machine-form').reset();
+        }
+        
+        function showAddLogModal(machineId = null, type = null, description = null) {
+            // Pre-select machine if provided
+            if (machineId) {
+                document.getElementById('log-machine').value = machineId;
+            }
+            
+            // Pre-select type if provided
+            if (type) {
+                document.getElementById('log-type').value = type;
+            }
+            
+            // Pre-fill description if provided
+            if (description) {
+                document.getElementById('log-description').value = description;
+            }
+            
+            addLogModal.style.display = 'flex';
+        }
+        
+        function closeAddLogModal() {
+            addLogModal.style.display = 'none';
+            document.getElementById('add-log-form').reset();
+            document.getElementById('log-image-preview').innerHTML = '';
+            setDefaultDates();
+        }
+        
+        function showReportBreakdownModal(machineId = null) {
+            // Pre-select machine if provided
+            if (machineId) {
+                document.getElementById('breakdown-machine').value = machineId;
+            }
+            
+            reportBreakdownModal.style.display = 'flex';
+        }
+        
+        function closeReportBreakdownModal() {
+            reportBreakdownModal.style.display = 'none';
+            document.getElementById('add-breakdown-form').reset();
+            document.getElementById('breakdown-image-preview').innerHTML = '';
+            setDefaultDates();
+        }
+        
+        function closeMachineDetailsModal() {
+            machineDetailsModal.style.display = 'none';
+        }
+
+        // Tab navigation
+        function switchTab(tabElement) {
+            // Remove active class from all tabs and sections
+            tabs.forEach(tab => tab.classList.remove('active'));
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            tabElement.classList.add('active');
+            
+            // Show corresponding section
+            const sectionId = tabElement.dataset.section;
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Camera functionality
+        let currentMediaStream = null;
+        let currentCameraTarget = null;
+
+        function openCamera(target) {
+            currentCameraTarget = target;
+            
+            // Access the user's camera
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    currentMediaStream = stream;
+                    const videoElement = document.getElementById('camera-stream');
+                    videoElement.srcObject = stream;
+                    cameraInterface.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error accessing camera:', error);
+                    alert('لا يمكن الوصول إلى الكاميرا. يرجى التحقق من إذن الكاميرا.');
+                });
+        }
+
+        function closeCamera() {
+            if (currentMediaStream) {
+                currentMediaStream.getTracks().forEach(track => track.stop());
+                currentMediaStream = null;
+            }
+            
+            cameraInterface.style.display = 'none';
+            currentCameraTarget = null;
+        }
+
+        function capturePhoto() {
+            if (!currentMediaStream || !currentCameraTarget) return;
+            
+            const videoElement = document.getElementById('camera-stream');
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            
+            const context = canvas.getContext('2d');
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            
+            const photoUrl = canvas.toDataURL('image/jpeg');
+            
+            // Add photo to target preview
+            addPhotoToPreview(photoUrl, currentCameraTarget);
+            
+            closeCamera();
+        }
+
+        function addPhotoToPreview(photoUrl, target) {
+            let previewContainer;
+            
+            switch(target) {
+                case 'machine':
+                    const machineImagePreview = document.getElementById('machine-image-preview');
+                    machineImagePreview.innerHTML = `<img src="${photoUrl}" alt="صورة الماكينة">`;
+                    machineImagePreview.className = '';
+                    break;
+                
+                case 'log':
+                    previewContainer = document.getElementById('log-image-preview');
+                    const logPhotoElement = document.createElement('img');
+                    logPhotoElement.src = photoUrl;
+                    logPhotoElement.alt = 'صورة الصيانة';
+                    previewContainer.appendChild(logPhotoElement);
+                    break;
+                
+                case 'breakdown':
+                    previewContainer = document.getElementById('breakdown-image-preview');
+                    const breakdownPhotoElement = document.createElement('img');
+                    breakdownPhotoElement.src = photoUrl;
+                    breakdownPhotoElement.alt = 'صورة العطل';
+                    previewContainer.appendChild(breakdownPhotoElement);
+                    break;
+            }
+        }
+
+        // Handle file uploads
+        function handleFileUpload(files, target) {
+            if (!files || files.length === 0) return;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                if (!file.type.startsWith('image/')) {
+                    alert('يرجى اختيار ملفات صور فقط');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    addPhotoToPreview(e.target.result, target);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Attach event listeners
+        function attachEventListeners() {
+            // Tab navigation
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => switchTab(tab));
+            });
+            
+            // Search and filter
+            machineSearch.addEventListener('input', () => {
+                renderMachines(departmentFilter.value, machineSearch.value);
+            });
+            
+            departmentFilter.addEventListener('change', () => {
+                renderMachines(departmentFilter.value, machineSearch.value);
+            });
+            
+            logSearch.addEventListener('input', () => {
+                renderLogs(logTypeFilter.value, logSearch.value);
+            });
+            
+            logTypeFilter.addEventListener('change', () => {
+                renderLogs(logTypeFilter.value, logSearch.value);
+            });
+            
+            breakdownSearch.addEventListener('input', () => {
+                renderBreakdowns(breakdownPriorityFilter.value, breakdownSearch.value);
+            });
+            
+            breakdownPriorityFilter.addEventListener('change', () => {
+                renderBreakdowns(breakdownPriorityFilter.value, breakdownSearch.value);
+            });
+            
+            // Modal open/close
+            addMachineBtn.addEventListener('click', showAddMachineModal);
+            document.getElementById('close-add-machine-modal').addEventListener('click', closeAddMachineModal);
+            document.getElementById('cancel-add-machine').addEventListener('click', closeAddMachineModal);
+            
+            addLogBtn.addEventListener('click', () => showAddLogModal());
+            document.getElementById('close-add-log-modal').addEventListener('click', closeAddLogModal);
+            document.getElementById('cancel-add-log').addEventListener('click', closeAddLogModal);
+            
+            reportBreakdownBtn.addEventListener('click', () => showReportBreakdownModal());
+            document.getElementById('close-breakdown-modal').addEventListener('click', closeReportBreakdownModal);
+            document.getElementById('cancel-breakdown').addEventListener('click', closeReportBreakdownModal);
+            
+            document.getElementById('close-machine-details-modal').addEventListener('click', closeMachineDetailsModal);
+            
+            // Form submissions
+            document.getElementById('add-machine-form').addEventListener('submit', addMachine);
+            document.getElementById('add-log-form').addEventListener('submit', addLog);
+            document.getElementById('add-breakdown-form').addEventListener('submit', reportBreakdown);
+            
+            // Camera controls
+            document.getElementById('machine-take-photo').addEventListener('click', () => openCamera('machine'));
+            document.getElementById('log-take-photo').addEventListener('click', () => openCamera('log'));
+            document.getElementById('breakdown-take-photo').addEventListener('click', () => openCamera('breakdown'));
+            
+            document.getElementById('capture-photo').addEventListener('click', capturePhoto);
+            document.getElementById('close-camera').addEventListener('click', closeCamera);
+            
+            // File uploads
+            document.getElementById('machine-image-upload').addEventListener('change', (e) => {
+                handleFileUpload(e.target.files, 'machine');
+            });
+            
+            document.getElementById('log-image-upload').addEventListener('change', (e) => {
+                handleFileUpload(e.target.files, 'log');
+            });
+            
+            document.getElementById('breakdown-image-upload').addEventListener('change', (e) => {
+                handleFileUpload(e.target.files, 'breakdown');
+            });
+            
+            // Update notification badge
+            updateNotificationBadge();
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+
+</html>

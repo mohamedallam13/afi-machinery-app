@@ -1,0 +1,14 @@
+# Google Apps Script specific
+.clasp.json
+node_modules/
+.env
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db 
