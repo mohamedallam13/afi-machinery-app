@@ -424,7 +424,9 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: var(--secondary);
+      color: var(--white);
+      z-index: 3001;
+      padding: 10px;
     }
 
     .modal-title {
@@ -480,18 +482,28 @@
     }
 
     .file-input-button {
-      flex: 1;
-      padding: 0.5rem;
-      text-align: center;
-      background-color: #eee;
-      border: 1px dashed #aaa;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
       border-radius: var(--radius);
       cursor: pointer;
+      font-weight: 500;
       transition: var(--transition);
     }
 
+    .file-input-button .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+    }
+
     .file-input-button:hover {
-      background-color: #e0e0e0;
+      background-color: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
     .file-preview {
@@ -1044,15 +1056,37 @@
     }
 
     .camera-placeholder {
-      width: 120px;
-      height: 120px;
-      background-color: #eee;
-      border-radius: 8px;
+      width: 100%;
+      height: 200px;
+      background-color: #f8f9fa;
+      border: 2px dashed #dee2e6;
+      border-radius: var(--radius);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--secondary);
-      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .camera-placeholder img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      padding: 1rem;
+    }
+
+    .camera-placeholder .icon {
+      width: 48px;
+      height: 48px;
+      color: #adb5bd;
+    }
+
+    .file-preview img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      padding: 0.25rem;
     }
 
     /* Notification Indicator */
@@ -1129,6 +1163,494 @@
       color: var(--danger);
       cursor: pointer;
       font-size: 1rem;
+    }
+
+    /* Update subtle button styles */
+    .btn--subtle {
+        background: none;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        color: var(--secondary);
+        opacity: 0.5;
+        transition: var(--transition);
+        cursor: pointer;
+        margin-right: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        border-radius: var(--radius);
+    }
+
+    .btn--subtle:hover {
+        opacity: 1;
+        color: var(--primary);
+        background-color: rgba(var(--primary-rgb), 0.1);
+    }
+
+    .btn--subtle .edit-text {
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    /* Enhanced Photo Carousel Styles */
+    .photo-carousel {
+        max-width: 95vw;
+        max-height: 95vh;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .carousel-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 85vh;
+        padding: 1rem;
+    }
+
+    .carousel-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-content img {
+        max-width: 90vw;
+        max-height: 60vh;
+        object-fit: contain;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: white;
+        padding: 1.25rem;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: var(--transition);
+        z-index: 2;
+        backdrop-filter: blur(4px);
+    }
+
+    .carousel-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-btn .icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .prev-btn {
+        left: 1.5rem;
+    }
+
+    .next-btn {
+        right: 1.5rem;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        padding: 0.75rem;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        font-size: 0.9rem;
+    }
+
+    .carousel-thumbnails {
+        display: flex;
+        gap: 0.5rem;
+        padding: 1rem;
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(4px);
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary) rgba(255, 255, 255, 0.1);
+    }
+
+    .carousel-thumbnails::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .carousel-thumbnails::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
+
+    .carousel-thumbnails::-webkit-scrollbar-thumb {
+        background-color: var(--primary);
+        border-radius: 3px;
+    }
+
+    .carousel-thumbnail {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: var(--transition);
+        border-radius: 4px;
+        opacity: 0.6;
+    }
+
+    .carousel-thumbnail:hover {
+        opacity: 0.8;
+        transform: translateY(-2px);
+    }
+
+    .carousel-thumbnail.active {
+        border-color: var(--primary);
+        opacity: 1;
+    }
+
+    /* Photo counter */
+    .photo-counter {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        backdrop-filter: blur(4px);
+    }
+
+    /* Loading indicator for photos */
+    .photo-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Add this CSS for medium-size modal photos */
+    .machine-modal-photo {
+      max-width: 220px;
+      max-height: 180px;
+      width: auto;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      object-fit: contain;
+    }
+
+    /* Style the error reporting button to be full width, yellow, and prominent */
+    #report-breakdown-btn {
+      width: 100%;
+      background-color: #ffc107 !important;
+      color: #333 !important;
+      border: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-top: 0.5rem;
+    }
+    #report-breakdown-btn svg.warning-icon {
+      width: 1.5em;
+      height: 1.5em;
+      fill: #856404;
+    }
+
+    /* Add this to your CSS */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        background-color: var(--white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin: 1rem 0;
+    }
+
+    .empty-state-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+        color: var(--secondary);
+        opacity: 0.5;
+    }
+
+    .empty-state-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+    }
+
+    .empty-state-message {
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+    }
+
+    .empty-state-action {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: var(--primary);
+        color: var(--white);
+        border-radius: var(--radius);
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .empty-state-action:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    /* Enhanced modal close button for better visibility */
+    .modal-close {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        font-size: 1.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 3001;
+        transition: var(--transition);
+        padding: 0;
+    }
+
+    .modal-close:hover {
+        background: rgba(0, 0, 0, 0.8);
+        transform: scale(1.1);
+    }
+
+    /* Make photo thumbnails consistent */
+    .log-photo, .history-photo, .breakdown-photo, .maintenance-photo, .repair-photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        transition: transform 0.2s ease;
+    }
+
+    .log-photo:hover, .history-photo:hover, .breakdown-photo:hover, 
+    .maintenance-photo:hover, .repair-photo:hover {
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-color: var(--primary);
+    }
+
+    /* --- Photo Carousel Robust Universal Handler --- */
+    let photoCarouselInitialized = false;
+
+    function initPhotoCarousel() {
+        if (photoCarouselInitialized) return; // Only initialize once
+        // Set up close button
+        const closeBtn = document.getElementById('close-photo-carousel');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                document.getElementById('photo-carousel-modal').style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+                document.getElementById('carousel-image').src = '';
+            });
+        }
+        // Set up next/prev buttons
+        document.getElementById('next-photo').addEventListener('click', function() {
+            const nextIndex = (currentPhotoIndex + 1) % currentPhotos.length;
+            showCarouselPhoto(nextIndex);
+        });
+        document.getElementById('prev-photo').addEventListener('click', function() {
+            const prevIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
+            showCarouselPhoto(prevIndex);
+        });
+        // Make clicking the modal background close it
+        document.getElementById('photo-carousel-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.getElementById('photo-carousel-modal').style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+                document.getElementById('carousel-image').src = '';
+            }
+        });
+        // Add global click handler for all images
+        document.addEventListener('click', function(e) {
+            // If clicking inside the carousel itself, return
+            if (e.target.closest('#photo-carousel-modal')) return;
+            // Check if the click is on an image that should open the carousel
+            const img = e.target.closest('img');
+            if (img && shouldOpenCarousel(img)) {
+                e.preventDefault();
+                e.stopPropagation();
+                openImageInCarousel(img);
+            }
+        });
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('photo-carousel-modal').style.display !== 'flex') return;
+            if (e.key === 'ArrowRight') {
+                const nextIndex = (currentPhotoIndex + 1) % currentPhotos.length;
+                showCarouselPhoto(nextIndex);
+            } else if (e.key === 'ArrowLeft') {
+                const prevIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
+                showCarouselPhoto(prevIndex);
+            } else if (e.key === 'Escape') {
+                document.getElementById('photo-carousel-modal').style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+                document.getElementById('carousel-image').src = '';
+            }
+        });
+        photoCarouselInitialized = true;
+    }
+
+    function shouldOpenCarousel(imgElement) {
+        const validContainers = [
+            '.log-photos', '.history-photos', '.file-preview', 
+            '.machine-detail-img', '.camera-placeholder'
+        ];
+        const validClasses = [
+            'log-photo', 'history-photo', 'breakdown-photo', 
+            'machine-modal-photo', 'carousel-thumbnail'
+        ];
+        for (const selector of validContainers) {
+            if (imgElement.closest(selector)) return true;
+        }
+        for (const className of validClasses) {
+            if (imgElement.classList.contains(className)) return true;
+        }
+        const width = imgElement.width || imgElement.clientWidth;
+        if (width >= 60 && width <= 300) return true;
+        return false;
+    }
+
+    function openImageInCarousel(imgElement) {
+        let photos = [];
+        let index = 0;
+        const container = imgElement.parentElement;
+        if (container) {
+            const siblingImages = container.querySelectorAll('img');
+            if (siblingImages.length > 0) {
+                photos = Array.from(siblingImages).map(img => img.src);
+                index = photos.indexOf(imgElement.src);
+            }
+        }
+        if (photos.length === 0 || index === -1) {
+            photos = [imgElement.src];
+            index = 0;
+        }
+        showPhotoCarousel(photos, index);
+    }
+
+    function showPhotoCarousel(photos, startIndex = 0) {
+        currentPhotos = photos;
+        currentPhotoIndex = startIndex;
+        const modal = document.getElementById('photo-carousel-modal');
+        const thumbnails = document.getElementById('carousel-thumbnails');
+        document.getElementById('photo-loading').style.display = 'block';
+        thumbnails.innerHTML = '';
+        photos.forEach((photo, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = photo;
+            thumb.className = `carousel-thumbnail ${index === startIndex ? 'active' : ''}`;
+            thumb.onclick = () => showCarouselPhoto(index);
+            thumbnails.appendChild(thumb);
+        });
+        showCarouselPhoto(startIndex);
+        modal.style.display = 'flex';
+    }
+
+    function showCarouselPhoto(index) {
+        currentPhotoIndex = index;
+        const image = document.getElementById('carousel-image');
+        const counter = document.getElementById('photo-counter');
+        const thumbnails = document.querySelectorAll('.carousel-thumbnail');
+        document.getElementById('photo-loading').style.display = 'block';
+        image.src = currentPhotos[index];
+        counter.textContent = `${index + 1} / ${currentPhotos.length}`;
+        thumbnails.forEach((thumb, i) => {
+            thumb.className = `carousel-thumbnail ${i === index ? 'active' : ''}`;
+        });
+    }
+
+    function hidePhotoLoading() {
+        document.getElementById('photo-loading').style.display = 'none';
+    }
+
+    /* --- Add robust CSS for clickable images and close button --- */
+    /* Ensure all images in specific contexts are clickable */
+    .log-photos img, 
+    .history-photos img, 
+    .file-preview img,
+    .machine-detail-img img,
+    .camera-placeholder img {
+        cursor: pointer;
+    }
+    /* Make the close button more visible */
+    #close-photo-carousel {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 3001;
+        transition: all 0.2s ease;
+    }
+    #close-photo-carousel:hover {
+        background: rgba(255, 0, 0, 0.7);
+        transform: scale(1.1);
+    }
+    #photo-carousel-modal {
+        z-index: 3000;
     }
   </style>
 </head>
@@ -1229,10 +1751,7 @@
           <option value="low">منخفضة</option>
         </select>
         <button class="add-btn" id="report-breakdown-btn">
-          <svg class="icon" viewBox="0 0 24 24">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
-          </svg>
+          <svg class="warning-icon" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
           الإبلاغ عن عطل
         </button>
       </div>
@@ -1315,10 +1834,16 @@
             </div>
             <div class="file-input-buttons">
               <label class="file-input-button" for="machine-image-upload">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                </svg>
                 اختيار صورة
                 <input type="file" id="machine-image-upload" accept="image/*" style="display: none;">
               </label>
               <button type="button" class="file-input-button" id="machine-take-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M9 3H15L17 5H21C22.1 5 23 5.9 23 7V19C23 20.1 22.1 21 21 21H3C1.9 21 1 20.1 1 19V7C1 5.9 1.9 5 3 5H7L9 3ZM12 18C14.76 18 17 15.76 17 13C17 10.24 14.76 8 12 8C9.24 8 7 10.24 7 13C7 15.76 9.24 18 12 18Z"/>
+                </svg>
                 التقاط صورة
               </button>
             </div>
@@ -1514,10 +2039,16 @@
           <div class="file-input-container">
             <div class="file-input-buttons">
               <label class="file-input-button" for="log-image-upload">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                </svg>
                 اختيار صور
                 <input type="file" id="log-image-upload" accept="image/*" style="display: none;" multiple>
               </label>
               <button type="button" class="file-input-button" id="log-take-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M9 3H15L17 5H21C22.1 5 23 5.9 23 7V19C23 20.1 22.1 21 21 21H3C1.9 21 1 20.1 1 19V7C1 5.9 1.9 5 3 5H7L9 3ZM12 18C14.76 18 17 15.76 17 13C17 10.24 14.76 8 12 8C9.24 8 7 10.24 7 13C7 15.76 9.24 18 12 18Z"/>
+                </svg>
                 التقاط صورة
               </button>
             </div>
@@ -1584,10 +2115,16 @@
           <div class="file-input-container">
             <div class="file-input-buttons">
               <label class="file-input-button" for="breakdown-image-upload">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                </svg>
                 اختيار صور
                 <input type="file" id="breakdown-image-upload" accept="image/*" style="display: none;" multiple>
               </label>
               <button type="button" class="file-input-button" id="breakdown-take-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M9 3H15L17 5H21C22.1 5 23 5.9 23 7V19C23 20.1 22.1 21 21 21H3C1.9 21 1 20.1 1 19V7C1 5.9 1.9 5 3 5H7L9 3ZM12 18C14.76 18 17 15.76 17 13C17 10.24 14.76 8 12 8C9.24 8 7 10.24 7 13C7 15.76 9.24 18 12 18Z"/>
+                </svg>
                 التقاط صورة
               </button>
             </div>
@@ -1620,7 +2157,7 @@
 
   <!-- Camera Interface -->
   <div class="camera-container" id="camera-interface">
-    <video id="camera-stream" autoplay></video>
+    <canvas id="camera-preview"></canvas>
     <div class="camera-controls">
       <button class="camera-button take-photo" id="capture-photo">
         <svg class="icon" viewBox="0 0 24 24">
@@ -1635,6 +2172,221 @@
             d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
         </svg>
       </button>
+    </div>
+  </div>
+
+  <!-- Add Edit Machine Modal -->
+  <div class="modal-overlay" id="edit-machine-modal">
+    <div class="modal">
+        <button class="modal-close" id="close-edit-machine-modal">&times;</button>
+        <h2 class="modal-title">تعديل بيانات الماكينة</h2>
+        <form id="edit-machine-form" class="machine-form">
+            <h3 class="section-title">معلومات الماكينة الأساسية</h3>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label required">اسم الماكينة</label>
+                        <input type="text" class="form-control" id="edit-machine-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">القسم</label>
+                        <select class="form-control" id="edit-machine-department" required>
+                            <option value="">اختر القسم</option>
+                            <option value="meat">قسم اللحوم</option>
+                            <option value="rice">قسم الأرز</option>
+                            <option value="maamoul">قسم المعمول</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رمز الماكينة</label>
+                        <input type="text" class="form-control" id="edit-machine-code">
+                    </div>
+                </div>
+                <div class="form-col camera-col">
+                    <div id="edit-machine-image-preview" class="camera-placeholder">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="file-input-buttons">
+                        <label class="file-input-button" for="edit-machine-image-upload">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                            اختيار صورة
+                            <input type="file" id="edit-machine-image-upload" accept="image/*" style="display: none;">
+                        </label>
+                        <button type="button" class="file-input-button" id="edit-machine-take-photo">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 3H15L17 5H21C22.1 5 23 5.9 23 7V19C23 20.1 22.1 21 21 21H3C1.9 21 1 20.1 1 19V7C1 5.9 1.9 5 3 5H7L9 3ZM12 18C14.76 18 17 15.76 17 13C17 10.24 14.76 8 12 8C9.24 8 7 10.24 7 13C7 15.76 9.24 18 12 18Z"/>
+                            </svg>
+                            التقاط صورة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">بيانات المنشأ والتشغيل</h3>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">الشركة المصنعة</label>
+                        <input type="text" class="form-control" id="edit-machine-manufacturer">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">الرقم التسلسلي</label>
+                        <input type="text" class="form-control" id="edit-machine-serial">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">بلد المنشأ</label>
+                        <input type="text" class="form-control" id="edit-machine-origin">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">حالة الماكينة</label>
+                        <select class="form-control" id="edit-machine-condition">
+                            <option value="new">جديدة</option>
+                            <option value="used">مستعملة</option>
+                            <option value="refurbished">مجددة</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">تاريخ بدء الاستخدام</label>
+                        <input type="date" class="form-control" id="edit-machine-start-date">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">تاريخ انتهاء الضمان</label>
+                        <input type="date" class="form-control" id="edit-machine-warranty-end">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">المواصفات الفنية</h3>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">متطلبات الطاقة</label>
+                        <input type="text" class="form-control" id="edit-machine-power-req" placeholder="مثال: 220V, 3 Phase">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">استهلاك الطاقة (كيلو واط)</label>
+                        <input type="number" class="form-control" id="edit-machine-power-consumption">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">السعة/الإنتاجية</label>
+                        <input type="text" class="form-control" id="edit-machine-capacity" placeholder="مثال: 500 قطعة/الساعة">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">سرعة التشغيل</label>
+                        <input type="text" class="form-control" id="edit-machine-speed">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-title">معلومات الصيانة</h3>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">دورة الصيانة الدورية</label>
+                        <select class="form-control" id="edit-machine-maintenance-cycle">
+                            <option value="">اختر</option>
+                            <option value="daily">يومية</option>
+                            <option value="weekly">أسبوعية</option>
+                            <option value="monthly">شهرية</option>
+                            <option value="quarterly">ربع سنوية</option>
+                            <option value="yearly">سنوية</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="form-label">تاريخ آخر صيانة</label>
+                        <input type="date" class="form-control" id="edit-machine-last-maintenance">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">قطع الغيار الهامة</label>
+                <textarea class="form-control" id="edit-machine-spare-parts" rows="2"></textarea>
+            </div>
+
+            <h3 class="section-title">المستندات</h3>
+            <div class="form-group">
+                <label class="form-label">إضافة مستندات (كتيبات، مخططات، شهادات)</label>
+                <div class="file-input-container">
+                    <label class="file-input-button" for="edit-machine-docs-upload">
+                        اختيار ملفات
+                        <input type="file" id="edit-machine-docs-upload" multiple style="display: none;">
+                    </label>
+                    <div id="edit-docs-preview" class="docs-preview">
+                        <!-- Documents preview will appear here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ملاحظات</label>
+                <textarea class="form-control" id="edit-machine-notes"></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn--secondary" id="cancel-edit-machine">إلغاء</button>
+                <button type="submit" class="btn btn--primary">حفظ التغييرات</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+  <!-- Add Photo Carousel Modal -->
+  <div class="modal-overlay" id="photo-carousel-modal">
+    <div class="modal photo-carousel">
+        <button class="modal-close" id="close-photo-carousel">&times;</button>
+        <div class="photo-counter" id="photo-counter"></div>
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" id="prev-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <div class="carousel-content">
+                <div class="photo-loading" id="photo-loading"></div>
+                <img id="carousel-image" src="" alt="صورة" onload="hidePhotoLoading()">
+                <div class="carousel-caption" id="carousel-caption"></div>
+            </div>
+            <button class="carousel-btn next-btn" id="next-photo">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="carousel-thumbnails" id="carousel-thumbnails">
+            <!-- Thumbnails will be added here dynamically -->
+        </div>
     </div>
   </div>
 
@@ -1937,7 +2689,16 @@
 
       // Create machine cards
       if (filteredMachines.length === 0) {
-        machinesGrid.innerHTML = '<div class="alert alert-danger">لا توجد ماكينات مطابقة لمعايير البحث</div>';
+        machinesGrid.innerHTML = `
+            <div class="empty-state">
+                <svg class="empty-state-icon" viewBox="0 0 24 24">
+                    <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
+                <h3 class="empty-state-title">لا توجد ماكينات</h3>
+                <p class="empty-state-message">لا توجد ماكينات مطابقة لمعايير البحث.</p>
+                <button class="empty-state-action" id="empty-add-machine-btn">إضافة ماكينة جديدة</button>
+            </div>`;
+        document.getElementById('empty-add-machine-btn').addEventListener('click', showAddMachineModal);
         return;
       }
 
@@ -1969,6 +2730,14 @@
                         <div class="machine-title">${machine.name}</div>
                         <div class="machine-details">${machine.departmentName} - ${machine.code}</div>
                         <div class="status status--${machine.status}">${statusLabel}</div>
+                        <div class="machine-actions">
+                            <button class="btn btn--subtle edit-machine-btn" data-id="${machine.id}" title="تعديل بيانات الماكينة">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                                </svg>
+                                <span class="edit-text">تعديل</span>
+                            </button>
+                        </div>
                     </div>
                 `;
 
@@ -2003,7 +2772,16 @@
 
       // Create log items
       if (filteredLogs.length === 0) {
-        logsList.innerHTML = '<div class="alert alert-danger">لا توجد سجلات مطابقة لمعايير البحث</div>';
+        logsList.innerHTML = `
+            <div class="empty-state">
+                <svg class="empty-state-icon" viewBox="0 0 24 24">
+                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                <h3 class="empty-state-title">لا توجد سجلات</h3>
+                <p class="empty-state-message">لا توجد سجلات صيانة مطابقة لمعايير البحث.</p>
+                <button class="empty-state-action" id="empty-add-log-btn">إضافة سجل صيانة</button>
+            </div>`;
+        document.getElementById('empty-add-log-btn').addEventListener('click', () => showAddLogModal());
         return;
       }
 
@@ -2065,7 +2843,16 @@
 
       // Create breakdown items
       if (filteredBreakdowns.length === 0) {
-        breakdownsList.innerHTML = '<div class="alert alert-danger">لا توجد أعطال مطابقة لمعايير البحث</div>';
+        breakdownsList.innerHTML = `
+            <div class="empty-state">
+                <svg class="empty-state-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+                </svg>
+                <h3 class="empty-state-title">لا توجد أعطال</h3>
+                <p class="empty-state-message">لا توجد أعطال مطابقة لمعايير البحث.</p>
+                <button class="empty-state-action" id="empty-report-breakdown-btn">الإبلاغ عن عطل</button>
+            </div>`;
+        document.getElementById('empty-report-breakdown-btn').addEventListener('click', () => showReportBreakdownModal());
         return;
       }
 
@@ -2158,7 +2945,15 @@
                     <img src="${machine.image}" alt="${machine.name}">
                 </div>
                 <div class="machine-detail-info">
-                    <div class="machine-detail-title">${machine.name}</div>
+                    <div class="machine-detail-title">
+                        ${machine.name}
+                        <button class="btn btn--subtle edit-machine-btn" data-id="${machine.id}" title="تعديل بيانات الماكينة">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                            </svg>
+                            <span class="edit-text">تعديل</span>
+                        </button>
+                    </div>
                     <div class="machine-status ${statusClass}">${statusLabel}</div>
                     <div class="machine-detail-specs">
                         <div class="machine-spec">
@@ -2571,17 +3366,47 @@
       }
     }
 
+    // Function to close all modals
+    function closeAllModals() {
+      const modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(modal => {
+        modal.style.display = 'none';
+      });
+      
+      // Reset all forms
+      document.getElementById('add-machine-form').reset();
+      document.getElementById('add-log-form').reset();
+      document.getElementById('add-breakdown-form').reset();
+      document.getElementById('edit-machine-form').reset();
+      
+      // Clear image previews
+      document.getElementById('log-image-preview').innerHTML = '';
+      document.getElementById('breakdown-image-preview').innerHTML = '';
+      document.getElementById('edit-machine-image-preview').innerHTML = `
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      `;
+      document.getElementById('edit-machine-image-preview').className = 'camera-placeholder';
+      document.getElementById('edit-docs-preview').innerHTML = '';
+      
+      // Reset dates
+      setDefaultDates();
+    }
+
     // Show/hide modals
     function showAddMachineModal() {
+      closeAllModals(); // Close any open modals first
       addMachineModal.style.display = 'flex';
     }
 
     function closeAddMachineModal() {
-      addMachineModal.style.display = 'none';
-      document.getElementById('add-machine-form').reset();
+      closeAllModals();
     }
 
     function showAddLogModal(machineId = null, type = null, description = null) {
+      closeAllModals(); // Close any open modals first
+      
       // Pre-select machine if provided
       if (machineId) {
         document.getElementById('log-machine').value = machineId;
@@ -2601,13 +3426,12 @@
     }
 
     function closeAddLogModal() {
-      addLogModal.style.display = 'none';
-      document.getElementById('add-log-form').reset();
-      document.getElementById('log-image-preview').innerHTML = '';
-      setDefaultDates();
+      closeAllModals();
     }
 
     function showReportBreakdownModal(machineId = null) {
+      closeAllModals(); // Close any open modals first
+      
       // Pre-select machine if provided
       if (machineId) {
         document.getElementById('breakdown-machine').value = machineId;
@@ -2617,14 +3441,21 @@
     }
 
     function closeReportBreakdownModal() {
-      reportBreakdownModal.style.display = 'none';
-      document.getElementById('add-breakdown-form').reset();
-      document.getElementById('breakdown-image-preview').innerHTML = '';
-      setDefaultDates();
+      closeAllModals();
     }
 
     function closeMachineDetailsModal() {
-      machineDetailsModal.style.display = 'none';
+      closeAllModals();
+    }
+
+    function closeEditMachineModal() {
+      closeAllModals();
+    }
+
+    function closePhotoCarousel() {
+      closeAllModals();
+      currentPhotos = [];
+      currentPhotoIndex = 0;
     }
 
     // Tab navigation
@@ -2652,9 +3483,32 @@
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
         .then(stream => {
           currentMediaStream = stream;
-          const videoElement = document.getElementById('camera-stream');
+          const videoElement = document.createElement('video');
           videoElement.srcObject = stream;
-          cameraInterface.style.display = 'block';
+          videoElement.autoplay = true;
+          videoElement.playsInline = true;
+          
+          // Wait for video to be ready
+          videoElement.onloadedmetadata = () => {
+            const canvas = document.getElementById('camera-preview');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            
+            // Show the camera interface
+            cameraInterface.style.display = 'block';
+            
+            // Start continuous frame capture
+            function drawFrame() {
+              if (currentMediaStream) {
+                const context = canvas.getContext('2d');
+                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                requestAnimationFrame(drawFrame);
+              }
+            }
+            
+            // Start drawing frames
+            drawFrame();
+          };
         })
         .catch(error => {
           console.error('Error accessing camera:', error);
@@ -2673,16 +3527,9 @@
     }
 
     function capturePhoto() {
-      if (!currentMediaStream || !currentCameraTarget) return;
+      if (!currentCameraTarget) return;
 
-      const videoElement = document.getElementById('camera-stream');
-      const canvas = document.createElement('canvas');
-      canvas.width = videoElement.videoWidth;
-      canvas.height = videoElement.videoHeight;
-
-      const context = canvas.getContext('2d');
-      context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-
+      const canvas = document.getElementById('camera-preview');
       const photoUrl = canvas.toDataURL('image/jpeg');
 
       // Add photo to target preview
@@ -2697,8 +3544,14 @@
       switch (target) {
         case 'machine':
           const machineImagePreview = document.getElementById('machine-image-preview');
-          machineImagePreview.innerHTML = `<img src="${photoUrl}" alt="صورة الماكينة">`;
+          machineImagePreview.innerHTML = `<img src="${photoUrl}" alt="صورة الماكينة" class="machine-modal-photo" style="cursor:pointer;" onclick="showPhotoCarousel(['${photoUrl}'], 0)">`;
           machineImagePreview.className = '';
+          break;
+
+        case 'edit-machine':
+          const editMachineImagePreview = document.getElementById('edit-machine-image-preview');
+          editMachineImagePreview.innerHTML = `<img src="${photoUrl}" alt="صورة الماكينة" class="machine-modal-photo" style="cursor:pointer;" onclick="showPhotoCarousel(['${photoUrl}'], 0)">`;
+          editMachineImagePreview.className = '';
           break;
 
         case 'log':
@@ -2788,6 +3641,23 @@
 
       document.getElementById('close-machine-details-modal').addEventListener('click', closeMachineDetailsModal);
 
+      // Add click outside modal to close
+      const modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeAllModals();
+          }
+        });
+      });
+
+      // Add escape key to close modals
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeAllModals();
+        }
+      });
+
       // Form submissions
       document.getElementById('add-machine-form').addEventListener('submit', addMachine);
       document.getElementById('add-log-form').addEventListener('submit', addLog);
@@ -2850,6 +3720,555 @@
     document.getElementById('machine-docs-upload').addEventListener('change', (e) => {
       handleDocumentUpload(e.target.files);
     });
+
+    // Add these new functions for edit functionality
+    function showEditMachineModal(machineId) {
+        const machine = machines.find(m => m.id === machineId);
+        if (!machine) return;
+
+        // Fill the form with machine data
+        document.getElementById('edit-machine-name').value = machine.name;
+        document.getElementById('edit-machine-department').value = machine.department;
+        document.getElementById('edit-machine-code').value = machine.code || '';
+        document.getElementById('edit-machine-manufacturer').value = machine.manufacturer || '';
+        document.getElementById('edit-machine-serial').value = machine.serial || '';
+        document.getElementById('edit-machine-origin').value = machine.origin || '';
+        document.getElementById('edit-machine-condition').value = machine.condition || 'used';
+        document.getElementById('edit-machine-start-date').value = machine.startDate || '';
+        document.getElementById('edit-machine-warranty-end').value = machine.warrantyEnd || '';
+        document.getElementById('edit-machine-power-req').value = machine.powerReq || '';
+        document.getElementById('edit-machine-power-consumption').value = machine.powerConsumption || '';
+        document.getElementById('edit-machine-capacity').value = machine.capacity || '';
+        document.getElementById('edit-machine-speed').value = machine.speed || '';
+        document.getElementById('edit-machine-maintenance-cycle').value = machine.maintenanceCycle || '';
+        document.getElementById('edit-machine-last-maintenance').value = machine.lastMaintenance || '';
+        document.getElementById('edit-machine-spare-parts').value = machine.spareParts || '';
+        document.getElementById('edit-machine-notes').value = machine.notes || '';
+
+        // Set the image preview
+        const imagePreview = document.getElementById('edit-machine-image-preview');
+        if (machine.image) {
+            imagePreview.innerHTML = `<img src="${machine.image}" alt="${machine.name}">`;
+            imagePreview.className = '';
+        } else {
+            imagePreview.innerHTML = `
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            `;
+            imagePreview.className = 'camera-placeholder';
+        }
+
+        // Show the modal
+        document.getElementById('edit-machine-modal').style.display = 'flex';
+    }
+
+    function closeEditMachineModal() {
+        document.getElementById('edit-machine-modal').style.display = 'none';
+        document.getElementById('edit-machine-form').reset();
+        document.getElementById('edit-machine-image-preview').innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        `;
+        document.getElementById('edit-machine-image-preview').className = 'camera-placeholder';
+        document.getElementById('edit-docs-preview').innerHTML = '';
+    }
+
+    function editMachine(event) {
+        event.preventDefault();
+
+        // Get form values
+        const machineId = parseInt(event.target.dataset.id);
+        const machine = machines.find(m => m.id === machineId);
+        if (!machine) return;
+
+        // Update machine data
+        machine.name = document.getElementById('edit-machine-name').value;
+        machine.department = document.getElementById('edit-machine-department').value;
+        machine.code = document.getElementById('edit-machine-code').value;
+        machine.manufacturer = document.getElementById('edit-machine-manufacturer').value;
+        machine.serial = document.getElementById('edit-machine-serial').value;
+        machine.origin = document.getElementById('edit-machine-origin').value;
+        machine.condition = document.getElementById('edit-machine-condition').value;
+        machine.startDate = document.getElementById('edit-machine-start-date').value;
+        machine.warrantyEnd = document.getElementById('edit-machine-warranty-end').value;
+        machine.powerReq = document.getElementById('edit-machine-power-req').value;
+        machine.powerConsumption = document.getElementById('edit-machine-power-consumption').value;
+        machine.capacity = document.getElementById('edit-machine-capacity').value;
+        machine.speed = document.getElementById('edit-machine-speed').value;
+        machine.maintenanceCycle = document.getElementById('edit-machine-maintenance-cycle').value;
+        machine.lastMaintenance = document.getElementById('edit-machine-last-maintenance').value;
+        machine.spareParts = document.getElementById('edit-machine-spare-parts').value;
+        machine.notes = document.getElementById('edit-machine-notes').value;
+
+        // Update department name
+        switch (machine.department) {
+            case 'meat':
+                machine.departmentName = 'قسم اللحوم';
+                break;
+            case 'rice':
+                machine.departmentName = 'قسم الأرز';
+                break;
+            case 'maamoul':
+                machine.departmentName = 'قسم المعمول';
+                break;
+        }
+
+        // Refresh the display
+        renderMachines();
+        populateMachineDropdowns();
+
+        // Close the modal
+        closeEditMachineModal();
+    }
+
+    // Add event listeners for edit functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... existing event listeners ...
+
+        // Edit machine button click
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.edit-machine-btn')) {
+                const machineId = parseInt(e.target.closest('.edit-machine-btn').dataset.id);
+                showEditMachineModal(machineId);
+            }
+        });
+
+        // Edit machine modal close
+        document.getElementById('close-edit-machine-modal').addEventListener('click', closeEditMachineModal);
+        document.getElementById('cancel-edit-machine').addEventListener('click', closeEditMachineModal);
+
+        // Edit machine form submission
+        document.getElementById('edit-machine-form').addEventListener('submit', editMachine);
+
+        // Edit machine image upload
+        document.getElementById('edit-machine-image-upload').addEventListener('change', (e) => {
+            handleFileUpload(e.target.files, 'edit-machine');
+        });
+
+        // Edit machine take photo
+        document.getElementById('edit-machine-take-photo').addEventListener('click', () => {
+            openCamera('edit-machine');
+        });
+
+        // Edit machine documents upload
+        document.getElementById('edit-machine-docs-upload').addEventListener('change', (e) => {
+            handleDocumentUpload(e.target.files);
+        });
+    });
+
+    // Add photo carousel functionality
+    let currentPhotoIndex = 0;
+    let currentPhotos = [];
+
+    function showPhotoCarousel(photos, startIndex = 0) {
+        currentPhotos = photos;
+        currentPhotoIndex = startIndex;
+        
+        const modal = document.getElementById('photo-carousel-modal');
+        const image = document.getElementById('carousel-image');
+        const thumbnails = document.getElementById('carousel-thumbnails');
+        const counter = document.getElementById('photo-counter');
+        
+        // Show loading indicator
+        document.getElementById('photo-loading').style.display = 'block';
+        
+        // Clear previous thumbnails
+        thumbnails.innerHTML = '';
+        
+        // Add thumbnails
+        photos.forEach((photo, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = photo;
+            thumb.className = `carousel-thumbnail ${index === startIndex ? 'active' : ''}`;
+            thumb.onclick = () => showPhoto(index);
+            thumbnails.appendChild(thumb);
+        });
+        
+        // Show initial photo
+        showPhoto(startIndex);
+        
+        // Update counter
+        updatePhotoCounter();
+        
+        // Show modal
+        modal.style.display = 'flex';
+
+        // Always re-attach the close button event listener using addEventListener
+        const closeBtn = document.getElementById('close-photo-carousel');
+        if (closeBtn) {
+            // Remove previous listeners by cloning
+            const newBtn = closeBtn.cloneNode(true);
+            closeBtn.parentNode.replaceChild(newBtn, closeBtn);
+            newBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                modal.style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+            });
+        }
+    }
+
+    function showPhoto(index) {
+        const image = document.getElementById('carousel-image');
+        const thumbnails = document.querySelectorAll('.carousel-thumbnail');
+        
+        // Show loading indicator
+        document.getElementById('photo-loading').style.display = 'block';
+        
+        currentPhotoIndex = index;
+        image.src = currentPhotos[index];
+        
+        // Update active thumbnail
+        thumbnails.forEach((thumb, i) => {
+            thumb.className = `carousel-thumbnail ${i === index ? 'active' : ''}`;
+        });
+        
+        // Update counter
+        updatePhotoCounter();
+    }
+
+    function hidePhotoLoading() {
+        document.getElementById('photo-loading').style.display = 'none';
+    }
+
+    function updatePhotoCounter() {
+        const counter = document.getElementById('photo-counter');
+        counter.textContent = `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+    }
+
+    // Add touch support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.getElementById('carousel-content').addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.getElementById('carousel-content').addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            nextPhoto(); // Swipe left
+        }
+        if (touchEndX > touchStartX + swipeThreshold) {
+            prevPhoto(); // Swipe right
+        }
+    }
+
+    function nextPhoto() {
+        const nextIndex = (currentPhotoIndex + 1) % currentPhotos.length;
+        showPhoto(nextIndex);
+    }
+
+    function prevPhoto() {
+        const prevIndex = (currentPhotoIndex - 1 + currentPhotos.length) % currentPhotos.length;
+        showPhoto(prevIndex);
+    }
+
+    function closePhotoCarousel() {
+        closeAllModals();
+        currentPhotos = [];
+        currentPhotoIndex = 0;
+    }
+
+    // Add event listeners for photo carousel
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... existing event listeners ...
+
+        // Photo carousel controls
+        document.getElementById('next-photo').addEventListener('click', nextPhoto);
+        document.getElementById('prev-photo').addEventListener('click', prevPhoto);
+        document.getElementById('close-photo-carousel').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('photo-carousel-modal').style.display = 'none';
+            currentPhotos = [];
+            currentPhotoIndex = 0;
+        });
+        // Make clicking the overlay close all modals for the photo carousel
+        document.getElementById('photo-carousel-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAllModals();
+            }
+        });
+
+        // Make photos clickable
+        document.addEventListener('click', (e) => {
+            const photo = e.target.closest('.history-photo, .log-photo');
+            if (photo) {
+                const photos = Array.from(photo.parentElement.querySelectorAll('img')).map(img => img.src);
+                const index = photos.indexOf(photo.src);
+                showPhotoCarousel(photos, index);
+            }
+        });
+
+        // Keyboard navigation for carousel
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('photo-carousel-modal').style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextPhoto();
+                if (e.key === 'ArrowLeft') prevPhoto();
+                if (e.key === 'Escape') closePhotoCarousel();
+            }
+        });
+    });
+
+    // Add a delegated event listener for all preview images to open the carousel
+    // This works for dynamically added images as well
+
+    document.addEventListener('click', function(e) {
+        // Prevent if clicking inside the carousel modal or its controls
+        if (e.target.closest('#photo-carousel-modal') || e.target.closest('.carousel-btn') || e.target.closest('#close-photo-carousel')) return;
+        // For machine image preview
+        if (e.target.closest('#machine-image-preview img')) {
+            const img = e.target.closest('#machine-image-preview img');
+            if (img && img.src) showPhotoCarousel([img.src], 0);
+        }
+        // For edit machine image preview
+        if (e.target.closest('#edit-machine-image-preview img')) {
+            const img = e.target.closest('#edit-machine-image-preview img');
+            if (img && img.src) showPhotoCarousel([img.src], 0);
+        }
+        // For log image preview (multiple images)
+        if (e.target.closest('#log-image-preview img')) {
+            const imgs = Array.from(document.querySelectorAll('#log-image-preview img'));
+            const index = imgs.indexOf(e.target.closest('img'));
+            if (index !== -1) showPhotoCarousel(imgs.map(i => i.src), index);
+        }
+        // For breakdown image preview (multiple images)
+        if (e.target.closest('#breakdown-image-preview img')) {
+            const imgs = Array.from(document.querySelectorAll('#breakdown-image-preview img'));
+            const index = imgs.indexOf(e.target.closest('img'));
+            if (index !== -1) showPhotoCarousel(imgs.map(i => i.src), index);
+        }
+    });
+
+    // Add this function for simple close button logic
+    function initPhotoCarousel() {
+        var closeBtn = document.getElementById('close-photo-carousel');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                console.log('Close button clicked!');
+                e.preventDefault();
+                e.stopPropagation();
+                document.getElementById('photo-carousel-modal').style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing event listeners ...
+        initPhotoCarousel();
+        // ... rest of DOMContentLoaded ...
+    });
+
+    // Breakdown repair logic: Only remove breakdown after repair form is submitted
+    function handleBreakdown(breakdownId) {
+      const breakdown = breakdowns.find(b => b.id === breakdownId);
+      if (!breakdown) return;
+
+      // Mark as being addressed (optional: set a flag if you want to visually indicate it's being edited)
+      // breakdown.beingEdited = true;
+
+      // Open the log modal to add repair details
+      showAddLogModal(breakdown.machineId, 'repair', breakdown.description);
+
+      // Store the breakdownId being handled in a variable
+      window.currentRepairBreakdownId = breakdownId;
+    }
+
+    // When the log modal is submitted, remove the breakdown
+    function addLog(event) {
+      event.preventDefault();
+      // ... existing code ...
+      // Add to logs array
+      logs.push(newLog);
+
+      // Update machine status if it's a repair
+      if (type === 'repair' && machine) {
+        machine.status = 'operational';
+      }
+
+      // If this log is a repair for a breakdown, remove the breakdown now
+      if (window.currentRepairBreakdownId) {
+        const idx = breakdowns.findIndex(b => b.id === window.currentRepairBreakdownId);
+        if (idx !== -1) breakdowns.splice(idx, 1);
+        window.currentRepairBreakdownId = null;
+        renderBreakdowns();
+        updateNotificationBadge();
+      }
+
+      // Refresh logs list and machines grid
+      renderLogs();
+      renderMachines();
+
+      // Close modal
+      closeAddLogModal();
+    }
+
+    // If the log modal is closed/canceled, do NOT remove the breakdown
+    // No change needed, as we only remove on submit now
+    // ... existing code ...
+
+    // Universal photo carousel function
+    function initUniversalPhotoCarousel() {
+        // Remove any previous global photo click handler
+        document.removeEventListener('click', handlePhotoClick);
+        document.addEventListener('click', handlePhotoClick);
+
+        // Carousel controls
+        document.getElementById('next-photo').addEventListener('click', nextPhoto);
+        document.getElementById('prev-photo').addEventListener('click', prevPhoto);
+        document.getElementById('close-photo-carousel').addEventListener('click', closePhotoCarousel);
+        document.getElementById('photo-carousel-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePhotoCarousel();
+            }
+        });
+    }
+
+    // Handler for photo clicks anywhere in the app
+    function handlePhotoClick(e) {
+        // Element classes that should trigger the carousel
+        const photoClasses = [
+            '.history-photo', '.log-photo', 
+            '#machine-image-preview img', '#edit-machine-image-preview img',
+            '#log-image-preview img', '#breakdown-image-preview img',
+            '.maintenance-photo', '.repair-photo', '.breakdown-photo'
+        ];
+        let photoElement = null;
+        for (const selector of photoClasses) {
+            if (e.target.matches(selector) || e.target.closest(selector)) {
+                photoElement = e.target.matches(selector) ? e.target : e.target.closest(selector);
+                break;
+            }
+        }
+        if (photoElement) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Find all photos in the same container
+            const photoContainer = photoElement.parentElement;
+            const photos = Array.from(photoContainer.querySelectorAll('img')).map(img => img.src);
+            const index = photos.indexOf(photoElement.src);
+            if (photos.length > 0 && index !== -1) {
+                showPhotoCarousel(photos, index);
+            } else if (photoElement.src) {
+                showPhotoCarousel([photoElement.src], 0);
+            }
+        }
+    }
+
+    // Improved close photo carousel function
+    function closePhotoCarousel(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        const modal = document.getElementById('photo-carousel-modal');
+        modal.style.display = 'none';
+        currentPhotos = [];
+        currentPhotoIndex = 0;
+        document.getElementById('carousel-image').src = '';
+    }
+
+    // ... existing code ...
+    // Universal photo carousel initialization
+    function initPhotoCarousel() {
+        // Remove any existing event listeners to prevent duplicates
+        document.removeEventListener('click', handlePhotoClick);
+        
+        // Add the universal photo click handler
+        document.addEventListener('click', handlePhotoClick);
+        
+        // Set up carousel controls
+        const modal = document.getElementById('photo-carousel-modal');
+        const closeBtn = document.getElementById('close-photo-carousel');
+        const nextBtn = document.getElementById('next-photo');
+        const prevBtn = document.getElementById('prev-photo');
+        
+        // Close button handler
+        if (closeBtn) {
+            closeBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                modal.style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+            };
+        }
+        
+        // Navigation buttons
+        if (nextBtn) nextBtn.onclick = nextPhoto;
+        if (prevBtn) prevBtn.onclick = prevPhoto;
+        
+        // Close on modal background click
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                currentPhotos = [];
+                currentPhotoIndex = 0;
+            }
+        };
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextPhoto();
+                if (e.key === 'ArrowLeft') prevPhoto();
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                    currentPhotos = [];
+                    currentPhotoIndex = 0;
+                }
+            }
+        });
+    }
+
+    // Universal photo click handler
+    function handlePhotoClick(e) {
+        // Check if the click was on a photo or its container
+        const photoElement = e.target.closest('img');
+        if (!photoElement) return;
+        
+        // Check if this is a photo that should open in carousel
+        const validClasses = [
+            'history-photo', 'log-photo', 'breakdown-photo',
+            'maintenance-photo', 'repair-photo', 'machine-modal-photo'
+        ];
+        
+        const isValidPhoto = validClasses.some(className => photoElement.classList.contains(className)) ||
+                           photoElement.closest('.log-photos, .history-photos, .file-preview');
+        
+        if (!isValidPhoto) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Find all photos in the same container
+        const container = photoElement.closest('.log-photos, .history-photos, .file-preview, #machine-image-preview, #edit-machine-image-preview, #log-image-preview, #breakdown-image-preview');
+        if (!container) {
+            // If no container found, just show this single photo
+            showPhotoCarousel([photoElement.src], 0);
+            return;
+        }
+        
+        // Get all photos in the container
+        const photos = Array.from(container.querySelectorAll('img')).map(img => img.src);
+        const index = photos.indexOf(photoElement.src);
+        
+        if (photos.length > 0 && index !== -1) {
+            showPhotoCarousel(photos, index);
+        }
+    }
+
+    // Initialize photo carousel when DOM is ready
+    document.addEventListener('DOMContentLoaded', initPhotoCarousel);
   </script>
 </body>
 
