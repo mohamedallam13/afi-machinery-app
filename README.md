@@ -8,7 +8,25 @@ A Google Apps Script web application for managing machinery maintenance at Advan
 
 ## Overview
 
-This system provides a comprehensive solution for tracking and managing machinery maintenance operations. It features a responsive web interface with Arabic language support and mobile-first design.
+This system provides a comprehensive solution for tracking and managing machinery maintenance operations. Built with a mobile-first approach, it ensures optimal performance and usability for technicians working on the production floor. The interface features Arabic language support and is designed to work seamlessly across all devices.
+
+## Screenshots
+
+### Dashboard
+![Dashboard View](docs/screenshots/dashboard.png)
+*Main dashboard showing machine status and maintenance overview*
+
+### Machine Details
+![Machine Details](docs/screenshots/machine-details.png)
+*Detailed view of individual machine information and maintenance history*
+
+### Maintenance Schedule
+![Maintenance Schedule](docs/screenshots/maintenance-schedule.png)
+*Calendar view of scheduled maintenance activities*
+
+### Mobile View
+![Mobile Interface](docs/screenshots/mobile-view.png)
+*Responsive mobile interface for on-the-go access*
 
 ## Key Benefits
 
@@ -17,6 +35,7 @@ This system provides a comprehensive solution for tracking and managing machiner
 - Improves maintenance team efficiency
 - Enhances decision-making with detailed equipment history
 - Maintains compliance with food safety regulations
+- Optimized for mobile use on the production floor
 
 ## Features
 
@@ -24,10 +43,12 @@ This system provides a comprehensive solution for tracking and managing machiner
 - Maintenance scheduling and monitoring
 - Real-time status updates (Operational, Maintenance, Breakdown)
 - Search and filter functionality
-- Mobile-responsive design
+- Mobile-first responsive design
+- Touch-optimized interface for field use
 - Arabic language support (RTL layout)
 - Performance analytics (MTBF, MTTR, uptime)
 - Document management for equipment manuals and certificates
+- Offline capability for areas with limited connectivity
 
 ## Technical Stack
 
@@ -36,6 +57,7 @@ This system provides a comprehensive solution for tracking and managing machiner
 - Google Sheets API (v4)
 - Custom AFI Library
 - AFI Controller Library (Handles all database CRUD operations)
+- Progressive Web App (PWA) features for mobile optimization
 
 ## Database Operations
 
@@ -78,6 +100,7 @@ The application is deployed as a Google Apps Script web app with the following c
 - Execute as: User deploying the web app
 - Access: Anyone, even anonymous
 - Timezone: Africa/Cairo
+- Mobile-optimized delivery
 
 ## Dependencies
 
