@@ -1,126 +1,112 @@
 # AFI Machinery Maintenance System
 
-A Google Apps Script web application for managing machinery maintenance at Advanced Food Industries (AFI).
+A Google Apps Script WebApp for tracking and managing machinery maintenance at Advanced Food Industries (AFI). Mobile-first, Arabic-language interface designed for technicians on the production floor.
 
-## About
+![Google Apps Script](https://img.shields.io/badge/Google%20Apps%20Script-4285F4?style=flat&logo=google&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-WebApp-blue)
+![Language](https://img.shields.io/badge/UI%20Language-Arabic%20(RTL)-orange)
+![Status](https://img.shields.io/badge/Status-Production-green)
 
-شركة الصناعات الغذائية المتطورة (Advanced Food Industries Company) is a leading food manufacturing enterprise specializing in meat processing, rice packaging, and traditional maamoul production. This maintenance management system streamlines machine maintenance operations across all production departments.
+---
 
-## Overview
+## About AFI
 
-This system provides a comprehensive solution for tracking and managing machinery maintenance operations. Built with a mobile-first approach, it ensures optimal performance and usability for technicians working on the production floor. The interface features Arabic language support and is designed to work seamlessly across all devices.
+شركة الصناعات الغذائية المتطورة (Advanced Food Industries) is a food manufacturing enterprise specialising in meat processing, rice packaging, and maamoul production, based in Egypt. This system covers maintenance operations across all production departments.
 
-## Screenshots
-
-### Dashboard
-![Dashboard View](docs/screenshots/dashboard.png)
-*Main dashboard showing machine status and maintenance overview*
-
-### Machine Details
-![Machine Details](docs/screenshots/machine-details.png)
-*Detailed view of individual machine information and maintenance history*
-
-### Maintenance Schedule
-![Maintenance Schedule](docs/screenshots/maintenance-schedule.png)
-*Calendar view of scheduled maintenance activities*
-
-### Mobile View
-![Mobile Interface](docs/screenshots/mobile-view.png)
-*Responsive mobile interface for on-the-go access*
-
-## Key Benefits
-
-- Reduces unplanned downtime by up to 38%
-- Extends equipment lifespan through preventive maintenance
-- Improves maintenance team efficiency
-- Enhances decision-making with detailed equipment history
-- Maintains compliance with food safety regulations
-- Optimized for mobile use on the production floor
+---
 
 ## Features
 
-- Machine management and tracking
+- Machine management and status tracking (Operational · Maintenance · Breakdown)
 - Maintenance scheduling and monitoring
-- Real-time status updates (Operational, Maintenance, Breakdown)
-- Search and filter functionality
-- Mobile-first responsive design
-- Touch-optimized interface for field use
-- Arabic language support (RTL layout)
-- Performance analytics (MTBF, MTTR, uptime)
-- Document management for equipment manuals and certificates
-- Offline capability for areas with limited connectivity
+- Real-time status updates and search/filter
+- Performance analytics — MTBF, MTTR, uptime percentages
+- Document management for equipment manuals and compliance certificates
+- Arabic language UI with full RTL layout
+- Mobile-first, touch-optimised for production floor use
 
-## Technical Stack
+---
 
-- Google Apps Script
-- HTML/CSS/JavaScript
-- Google Sheets API (v4)
-- Custom AFI Library
-- AFI Controller Library (Handles all database CRUD operations)
-- Progressive Web App (PWA) features for mobile optimization
+## Tech Stack
 
-## Database Operations
+| Layer    | Technology                          |
+|----------|-------------------------------------|
+| Platform | Google Apps Script                  |
+| UI       | HTML5, CSS3, Vanilla JavaScript     |
+| Database | Google Sheets (Sheets API v4)       |
+| Library  | AFI Controller Library (CRUD ops)   |
+| Deploy   | clasp CLI                           |
 
-The system uses the AFI Controller library to manage all database operations:
-- Create: Adding new machines and maintenance records
-- Read: Retrieving machine data and maintenance history
-- Update: Modifying machine status and maintenance schedules
-- Delete: Removing outdated records and maintenance entries
+---
 
-## Setup
+## Project Structure
 
-1. Clone the repository using clasp:
-```bash
-clasp clone "1lVvFrEmVQl2Nc2ijTruldoTCae5eZdE_gOsnPxmHISLXgnvdKFV3n418"
+```
+afi-machinery-app/
+├── README.md
+├── AGENT.md
+├── .gitignore
+└── src/
+    ├── appsscript.json  # GAS manifest
+    ├── env.js           # Sheet IDs and config
+    ├── Backend.js       # Data access layer (Sheets read/write)
+    ├── Helpers.js       # Pure utility functions
+    ├── Middleware.js    # Server-side routing
+    ├── Server.js        # doGet() / doPost() entry points
+    └── index.html       # SPA shell (dashboard, machine details, schedule)
 ```
 
-2. Install dependencies:
+---
+
+## Getting Started
+
+### Prerequisites
+
+- A Google account with Google Apps Script access
+- [clasp](https://github.com/google/clasp) installed globally
+
 ```bash
 npm install -g @google/clasp
-```
-
-3. Login to clasp:
-```bash
 clasp login
 ```
 
-## Development
+### Setup
 
-- `index.html`: Main web interface
-- `server/`: Backend logic
-  - `Server.js`: Main server logic
-  - `Backend.js`: Backend functions
-  - `Helpers.js`: Utility functions
-  - `Middleware.js`: Request middleware
-  - `env.js`: Environment configuration
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mohamedallam13/afi-machinery-app.git
+   cd afi-machinery-app
+   ```
+
+2. Link to your Apps Script project:
+   ```bash
+   clasp create --type webapp --title "AFI Machinery" --rootDir src
+   ```
+
+3. Push source files:
+   ```bash
+   clasp push
+   ```
+
+4. Set Sheet IDs and any config values in `env.js`.
+
+---
 
 ## Deployment
 
-The application is deployed as a Google Apps Script web app with the following configuration:
-- Execute as: User deploying the web app
-- Access: Anyone, even anonymous
-- Timezone: Africa/Cairo
-- Mobile-optimized delivery
+Deployed as a Google Apps Script Web App:
 
-## Dependencies
+- **Execute as**: User deploying the web app
+- **Who has access**: Anyone (or restrict to organisation)
+- **Timezone**: Africa/Cairo
 
-- Google Sheets API v4
-- AFILibrary (Development Mode)
-- AFI Controller Library (Database operations)
+To redeploy after changes:
 
-## Contributing
+1. In the Apps Script editor, go to **Deploy > Manage deployments**
+2. Create a new version and update the active deployment
 
-1. Make your changes
-2. Test thoroughly
-3. Push changes using clasp:
-```bash
-clasp push
-```
+---
 
-## Support
+## Author
 
-For system support, contact the IT department at support@advancedfoodindustries.com
-
-## License
-
-Proprietary - Advanced Food Industries (AFI) 
+**Mohamed Allam** — [GitHub](https://github.com/mohamedallam13) · [Email](mailto:mohamedallam.tu@gmail.com)
